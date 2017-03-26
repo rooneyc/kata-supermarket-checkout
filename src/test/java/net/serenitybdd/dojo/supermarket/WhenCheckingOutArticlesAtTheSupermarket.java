@@ -23,7 +23,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_the_price_of_a_product_in_catalog() throws Exception {
+    public void a_receipt_should_show_the_total_price_when_one_item_in_the_cart() throws Exception {
 
         // GIVEN
         Catalog catalog = new Catalog();
@@ -42,7 +42,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_price_of_both_products_in_cart() throws Exception {
+    public void a_receipt_should_show_the_total_price_when_two_items_of_same_type_in_the_cart() throws Exception {
 
         // GIVEN
         Catalog catalog = new Catalog();
@@ -62,7 +62,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_price_of_different_types_of_product() throws Exception {
+    public void a_receipt_should_show_the_total_price_when_two_items_of_different_types_in_the_cart() throws Exception {
 
         // GIVEN
         Catalog catalog = new Catalog();
