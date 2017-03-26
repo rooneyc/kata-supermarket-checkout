@@ -19,13 +19,6 @@ public class ShoppingCart {
         return new ShoppingCartAdder(this, product);
     }
 
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "items=" + items +
-                '}';
-    }
-
     public class ShoppingCartAdder {
         private final ShoppingCart shoppingCart;
         private final Product product;

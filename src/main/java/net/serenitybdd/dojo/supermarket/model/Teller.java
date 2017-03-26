@@ -21,7 +21,7 @@ public class Teller {
             if (catalog.hasDealFor(product)) {
                 int dealItemsPurchased = Collections.frequency(receipt.getPurchasedItems(), product);
                 if (dealItemsPurchased > catalog.quantityRequiredForDiscount(product)) {
-                    double discount = dealItemsPurchased * product.getPrice() * catalog.discount(product);
+                    double discount = dealItemsPurchased * product.getPrice() * catalog.discountFor(product);
                     totalPrice = totalPrice - discount;
                 }
             }

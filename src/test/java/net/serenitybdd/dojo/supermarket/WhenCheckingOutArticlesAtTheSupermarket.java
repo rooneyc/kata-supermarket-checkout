@@ -233,7 +233,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product toothBrush = new Product("Toothbrush", 350);
-        catalog.addBuySomeGetSomeFreeDeal(2, toothBrush,1);
+        catalog.addBuyAndGetSomeFreeDeal(2, toothBrush,1);
         theCart.add(toothBrush).times(2);
 
         // WHEN
@@ -252,7 +252,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product floss = new Product("Floss", 150);
-        catalog.addBuySomeGetSomeFreeDeal(4, floss,2);
+        catalog.addBuyAndGetSomeFreeDeal(4, floss,2);
         theCart.add(floss).times(4);
 
         // WHEN
@@ -272,11 +272,11 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         ShoppingCart theCart = new ShoppingCart();
 
         Product toothBrush = new Product("Toothbrush", 350);
-        catalog.addBuySomeGetSomeFreeDeal(2, toothBrush, 1);
+        catalog.addBuyAndGetSomeFreeDeal(2, toothBrush, 1);
         theCart.add(toothBrush).times(2);
 
         Product floss = new Product("Toothbrush", 150);
-        catalog.addBuySomeGetSomeFreeDeal(4, floss, 1);
+        catalog.addBuyAndGetSomeFreeDeal(4, floss, 1);
         theCart.add(floss).times(4);
 
         Product apple = new Product("Apple", 50);

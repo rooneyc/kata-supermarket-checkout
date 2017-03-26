@@ -25,10 +25,4 @@ public class Receipt {
         purchasedItems.add(product);
     }
 
-    @Override
-    public String toString() {
-        return "Receipt{" +
-                "purchasedItems=" + purchasedItems +
-                '}';
-    }
 }
