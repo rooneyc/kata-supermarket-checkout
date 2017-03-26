@@ -7,7 +7,7 @@ public class ShoppingCart {
 
     private final List<Product> items = new ArrayList<>();
 
-    public List<Product> getItems() {
+    List<Product> getItems() {
         return new ArrayList<>(items);
     }
 
@@ -19,11 +19,18 @@ public class ShoppingCart {
         return new ShoppingCartAdder(this, product);
     }
 
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "items=" + items +
+                '}';
+    }
+
     public class ShoppingCartAdder {
         private final ShoppingCart shoppingCart;
         private final Product product;
 
-        public ShoppingCartAdder(ShoppingCart shoppingCart, Product product) {
+        ShoppingCartAdder(ShoppingCart shoppingCart, Product product) {
             this.shoppingCart = shoppingCart;
             this.product = product;
         }

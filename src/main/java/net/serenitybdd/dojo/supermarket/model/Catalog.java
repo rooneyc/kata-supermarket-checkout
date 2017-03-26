@@ -25,15 +25,16 @@ public class Catalog {
     }
 
     int quantityRequiredForDiscount(Product product) {
-        return deals.get(product).getMinQuantity();
+        return deals.get(product).getMustBuyMoreThan();
     }
 
     double discount(Product product) {
         return deals.get(product).getDiscount();
     }
 
-    public void addBuyGetFreeDeal(Product product, int mustBuy, int getFree) {
-        double percentage = getFree/mustBuy;
-        deals.put(product, new Promotion(0, percentage));
+    public void addBuyGetFreeDeal(Product product, int buy, int getFree) {
+        double percentage = (double)getFree/(double)buy;
+        int mustBuyMoreThan = buy - 1;
+        deals.put(product, new Promotion(mustBuyMoreThan, percentage));
     }
 }
