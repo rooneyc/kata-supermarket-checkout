@@ -7,7 +7,7 @@ public class Catalog {
 
     private List<Product> products = new ArrayList<>();
 
-    public void add(Product product) {
-        products.add(product);
+    public void addFixedDiscount(Product product, double discount) {
+
     }
 }

@@ -101,21 +101,42 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_the_total_price_for_but_two_get_one_free_special_deal_items() throws Exception {
+    public void a_receipt_should_show_correct_total_price_when_items_on_fixed_discount_deal_in_cart() throws Exception {
+
         // GIVEN
+        Product oranges = new Product("1Kg Bag of Oranges", 5.00); //1.00 discount
+        Product banannas = new Product("2Kg Bag of Oranges", 6.00); //2.00 discount
         Catalog catalog = new Catalog();
+        catalog.addFixedDiscount(oranges, 1.00);
+        catalog.addFixedDiscount(banannas, 2.00);
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product juice = new Product("Orange Juice", 1.00);
-        theCart.addItem(juice);
-        theCart.addItem(juice);
+        theCart.addItem(oranges);
+        theCart.addItem(banannas);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(1.00);
-
+        assertThat(receipt.getTotalPrice()).isEqualTo(8.00);
     }
+
+    //    @Test
+//    public void a_receipt_should_show_the_correct_total_price_when_buy_two_get_one_free_items_in_cart() throws Exception {
+//        // GIVEN
+//        Catalog catalog = new Catalog();
+//        Teller teller = new Teller(catalog);
+//        ShoppingCart theCart = new ShoppingCart();
+//        Product toothBrush = new Product("Toothbrush", 3.50);
+//        theCart.addItem(toothBrush);
+//        theCart.addItem(toothBrush);
+//
+//        // WHEN
+//        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+//
+//        // THEN
+//        assertThat(receipt.getTotalPrice()).isEqualTo(3.50);
+//
+//    }
 
 }

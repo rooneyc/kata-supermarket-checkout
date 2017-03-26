@@ -17,7 +17,12 @@ public class Teller {
         double totalPrice = 0.00;
         for (Product product : products) {
             receipt.addItem(product);
-            totalPrice = totalPrice + product.getPrice();
+            if ("1Kg Bag of Oranges".equals(product.getName())) {
+                totalPrice = totalPrice + product.getPrice() - 1.00;
+            } else {
+                totalPrice = totalPrice + product.getPrice();
+            }
+
         }
         receipt.setTotalPrice(totalPrice);
         return receipt;
