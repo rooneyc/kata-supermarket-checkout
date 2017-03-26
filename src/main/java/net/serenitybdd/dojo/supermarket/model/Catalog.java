@@ -1,15 +1,13 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Catalog {
 
-    double productPrice = 0.00;
+    private List<Product> products = new ArrayList<>();
 
-    public double getProductPrice(Product milk) {
-        return productPrice;
-    };
-
-    public void setProductPrice(Product milk, double v) {
-        this.productPrice = v;
+    public void add(Product product) {
+        products.add(product);
     }
-
 }

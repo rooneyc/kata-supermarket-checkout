@@ -15,7 +15,7 @@ public class Teller {
         List<Product> products = theCart.getItems();
         double price = 0.00;
         for (Product product : products) {
-            price = price + catalog.getProductPrice(product);
+            price = price + product.getPrice();
         }
         return new Receipt(price);
     }
