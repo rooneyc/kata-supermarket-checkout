@@ -101,7 +101,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_correct_total_price_when_items_in_cart_on_fixed_discount_deal() throws Exception {
+    public void receipt_total_should_account_for_items_in_cart_on_fixed_discount_deal() throws Exception {
 
         // GIVEN
         Product oranges = new Product("1Kg Bag of Oranges", 5.00);
@@ -122,7 +122,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_correct_total_price_when_item_in_cart_on_percentage_discount_deal() throws Exception {
+    public void receipt_total_should_account_for_item_in_cart_on_percentage_discount_deal() throws Exception {
 
         // GIVEN
         Product rice = new Product("1Kg Bag of Rice", 10.00);
@@ -137,10 +137,27 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(9.00);
-
-
     }
 
+    @Test
+    public void receipt_total_should_account_for_for_item_in_cart_on_percentage_discount_for_quantity_deal() throws Exception {
+
+        // GIVEN
+        Promotion deal = new Promotion(10, 0.20);
+        Product apple = new Product("Apple", 0.50);
+        Catalog catalog = new Catalog();
+        catalog.addDeal(apple, deal);
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(apple).times(11);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(4.40);
+
+    }
 
     //    @Test
 //    public void a_receipt_should_show_the_correct_total_price_when_buy_two_get_one_free_items_in_cart() throws Exception {
@@ -160,6 +177,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 //
 //    }
 
-    //if product in two deal, most beneficial deal should apply
+    //if product in two deals, most beneficial deal should apply
 
 }

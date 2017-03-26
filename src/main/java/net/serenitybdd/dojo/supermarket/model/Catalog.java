@@ -35,4 +35,15 @@ public class Catalog {
     double getPercentageDiscount(Product product) {
         return percentageDiscount.get(product);
     }
+
+    public void addDeal(Product apple, Promotion deal) {
+    }
+
+    boolean hasPercentageDiscountOnQuantityFor(Product product) {
+        return false;
+    }
+
+    int quantityRequiredForDiscount() {
+        return 0;
+    }
 }

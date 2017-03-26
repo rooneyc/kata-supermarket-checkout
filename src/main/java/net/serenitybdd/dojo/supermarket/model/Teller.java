@@ -1,5 +1,6 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Teller {
@@ -7,7 +8,6 @@ public class Teller {
     private final Catalog catalog;
 
     public Teller(Catalog catalog) {
-
         this.catalog = catalog;
     }
 
@@ -21,10 +21,13 @@ public class Teller {
                 totalPrice = totalPrice + product.getPrice() - catalog.getFixedDiscountFor(product);
             } else if (catalog.hasPercentageDiscountFor(product)) {
                 totalPrice = totalPrice + (product.getPrice() * (1.00 - catalog.getPercentageDiscount(product)));
+            } else if (catalog.hasPercentageDiscountOnQuantityFor(product)) {
+                if (Collections.frequency(receipt.getPurchasedItems(), product) == catalog.quantityRequiredForDiscount()) {
+
+                }
             } else {
                 totalPrice = totalPrice + product.getPrice();
             }
-
         }
         receipt.setTotalPrice(totalPrice);
         return receipt;
