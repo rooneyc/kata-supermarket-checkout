@@ -12,11 +12,14 @@ public class Teller {
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
+        Receipt receipt = new Receipt();
         List<Product> products = theCart.getItems();
-        double price = 0.00;
+        double totalPrice = 0.00;
         for (Product product : products) {
-            price = price + product.getPrice();
+            receipt.addItem(product);
+            totalPrice = totalPrice + product.getPrice();
         }
-        return new Receipt(price);
+        receipt.setTotalPrice(totalPrice);
+        return receipt;
     }
 }
