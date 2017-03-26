@@ -19,6 +19,8 @@ public class Teller {
             receipt.addItem(product);
             if (catalog.hasFixedDiscountFor(product)) {
                 totalPrice = totalPrice + product.getPrice() - catalog.getFixedDiscountFor(product);
+            } else if (catalog.hasPercentageDiscountFor(product)) {
+                totalPrice = totalPrice + (product.getPrice() * (1.00 - catalog.getPercentageDiscount(product)));
             } else {
                 totalPrice = totalPrice + product.getPrice();
             }

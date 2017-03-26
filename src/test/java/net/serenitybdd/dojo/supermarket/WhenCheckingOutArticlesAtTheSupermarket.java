@@ -160,4 +160,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 //
 //    }
 
+    //if product in two deal, most beneficial deal should apply
+
 }

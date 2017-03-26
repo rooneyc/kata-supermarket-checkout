@@ -26,4 +26,13 @@ public class Catalog {
     public void addPercentageDiscount(Product product, double percentage) {
         percentageDiscount.put(product, percentage);
     }
+
+    boolean hasPercentageDiscountFor(Product product) {
+        return percentageDiscount.containsKey(product);
+    }
+
+
+    double getPercentageDiscount(Product product) {
+        return percentageDiscount.get(product);
+    }
 }
