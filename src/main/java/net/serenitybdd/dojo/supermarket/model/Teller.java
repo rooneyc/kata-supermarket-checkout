@@ -17,22 +17,18 @@ public class Teller {
         double totalPrice = 0.00;
         for (Product product : products) {
             receipt.addItem(product);
-            if (catalog.hasFixedDiscountFor(product)) {
-                totalPrice = totalPrice + product.getPrice() - catalog.getFixedDiscountFor(product);
-            } else if (catalog.hasPercentageDiscountFor(product)) {
-                totalPrice = totalPrice + (product.getPrice() * (1.00 - catalog.getPercentageDiscount(product)));
-            } else if (catalog.hasDealFor(product)) {
-                totalPrice = totalPrice + product.getPrice();
+            totalPrice = totalPrice + product.getPrice();
+            if (catalog.hasDealFor(product)) {
                 int dealItemsPurchased = Collections.frequency(receipt.getPurchasedItems(), product);
                 if (dealItemsPurchased > catalog.quantityRequiredForDiscount(product)) {
-                    double discount = dealItemsPurchased*product.getPrice()*catalog.discount(product);
+                    double discount = dealItemsPurchased * product.getPrice() * catalog.discount(product);
                     totalPrice = totalPrice - discount;
                 }
-            } else {
-                totalPrice = totalPrice + product.getPrice();
             }
         }
         receipt.setTotalPrice(totalPrice);
         return receipt;
     }
+
+
 }

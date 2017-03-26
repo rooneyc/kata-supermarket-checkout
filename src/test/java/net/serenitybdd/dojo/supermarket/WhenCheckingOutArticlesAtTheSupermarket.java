@@ -41,21 +41,20 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_the_total_price_when_two_items_of_same_type_in_the_cart() throws Exception {
+    public void a_receipt_should_show_the_total_price_when_three_items_of_same_type_in_the_cart() throws Exception {
 
         // GIVEN
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 1.00);
-        theCart.addItem(milk);
-        theCart.addItem(milk);
+        theCart.add(milk).times(3);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*2);
+        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*3);
 
     }
 
@@ -101,24 +100,45 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void receipt_total_should_account_for_items_in_cart_on_fixed_discount_deal() throws Exception {
+    public void receipt_total_should_account_for_item_in_cart_on_fixed_discount_deal() throws Exception {
 
         // GIVEN
         Product oranges = new Product("1Kg Bag of Oranges", 5.00);
-        Product banannas = new Product("2Kg Bag of Oranges", 6.00);
         Catalog catalog = new Catalog();
         catalog.addFixedDiscount(oranges, 1.00);
-        catalog.addFixedDiscount(banannas, 2.00);
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         theCart.addItem(oranges);
-        theCart.addItem(banannas);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(8.00);
+        assertThat(receipt.getTotalPrice()).isEqualTo(4.00);
+    }
+
+    @Test
+    public void receipt_total_should_account_for_items_in_cart_on_fixed_discount_deal() throws Exception {
+
+        // GIVEN
+        Product oranges = new Product("1Kg Bag of Oranges", 5.00);
+        Product banannas = new Product("2Kg Bag of Oranges", 6.00);
+        Product grapes = new Product("0.5Kg Bag of Oranges", 3.00);
+        Catalog catalog = new Catalog();
+        catalog.addFixedDiscount(oranges, 1.00);
+        catalog.addFixedDiscount(banannas, 2.00);
+        catalog.addFixedDiscount(grapes, 0.50);
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(oranges);
+        theCart.addItem(banannas);
+        theCart.addItem(grapes);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(10.50);
     }
 
     @Test
@@ -140,7 +160,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void receipt_total_should_account_for_for_item_in_cart_on_percentage_discount_for_quantity_deal() throws Exception {
+    public void receipt_total_should_account_for_item_in_cart_on_percentage_discount_for_quantity_deal() throws Exception {
 
         // GIVEN
         Promotion deal = new Promotion(10, 0.20);
