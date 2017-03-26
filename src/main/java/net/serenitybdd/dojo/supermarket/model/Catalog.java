@@ -34,4 +34,9 @@ public class Catalog {
     double discount(Product product) {
         return deals.get(product).getDiscount();
     }
+
+    public void addBuyGetFreeDeal(Product product, int mustBuy, int getFree) {
+        double percentage = getFree/mustBuy;
+        deals.put(product, new Promotion(0, percentage));
+    }
 }

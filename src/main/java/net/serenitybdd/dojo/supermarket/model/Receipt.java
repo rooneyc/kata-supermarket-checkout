@@ -24,4 +24,11 @@ public class Receipt {
     void addItem(Product product) {
         purchasedItems.add(product);
     }
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "purchasedItems=" + purchasedItems +
+                '}';
+    }
 }
