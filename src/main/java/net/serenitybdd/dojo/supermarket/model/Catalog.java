@@ -29,9 +29,9 @@ public class Catalog {
     }
 
     public void addBuyAndGetSomeFreeDeal(int buy, Product product, int getFree) {
-        double percentage = (double)getFree/(double)buy;
+        double percentageDiscount = (double)getFree/(double)buy;
         int mustBuyMoreThan = buy - 1;
-        deals.put(product, new Promotion(mustBuyMoreThan, percentage));
+        deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
     }
 
     public void addDiscountForQuantityDeal(int mustBuyMoreThan, Product product, double percentageDiscount) {

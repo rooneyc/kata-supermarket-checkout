@@ -168,7 +168,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product rice = new Product("1Kg Bag of Rice", 1000);
-        Product biscuits = new Product("Jaffa Cakes", 560);
+        Product biscuits = new Product("Colourful Cakes", 560);
         Product tea = new Product("Tea Bags", 2000);
         catalog.addPercentageDiscount(rice, 0.10);
         catalog.addPercentageDiscount(biscuits, 0.15);
@@ -292,7 +292,21 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    //if product in two deals, most beneficial deal should apply
+    //3 for 130, 2 for 45 i.e. quantity for fixed price
+
+    //any 5 chocolate bars for £2
+
+    //coupons
+
+    //mixed item deal e.g. valentines meal, dinner + desert + wine for X
+
+    //free catalogue item e.g. friday night deal buy 2 x bear and 1 x pizza get 1 box salted crackers free
+
+    //free gift (not in catalogue) i.e. free CD with sunday paper
+
+    //offer combination rules i.e. this offer cannot be combined with an other offer e.g. coupons
+
+    //if product qualifies for two deals, most beneficial deal should apply
 
 }
 
