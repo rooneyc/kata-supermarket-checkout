@@ -32,13 +32,12 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Product milk = new Product("Milk", 1.00);
         catalog.add(milk);
         theCart.addItem(milk);
-        theCart.addItem(milk);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*2);
+        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice());
 
     }
 
