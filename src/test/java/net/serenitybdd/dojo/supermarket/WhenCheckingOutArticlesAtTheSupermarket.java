@@ -3,7 +3,7 @@ package net.serenitybdd.dojo.supermarket;
 import net.serenitybdd.dojo.supermarket.model.*;
 import org.junit.Test;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
 
@@ -30,7 +30,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 1.00);
-        catalog.add(milk);
         theCart.addItem(milk);
 
         // WHEN
@@ -49,7 +48,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 1.00);
-        catalog.add(milk);
         theCart.addItem(milk);
         theCart.addItem(milk);
 
@@ -60,26 +58,45 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*2);
 
     }
-//
-//    @Test
-//    public void a_receipt_should_show_the_total_price_when_two_items_of_different_types_in_the_cart() throws Exception {
-//
-//        // GIVEN
-//        Catalog catalog = new Catalog();
-//        Teller teller = new Teller(catalog);
-//        ShoppingCart theCart = new ShoppingCart();
-//        Product milk = new Product();
-//        Product bread = new Product();
-//        catalog.setProductPrice(milk, 1.00);
-//        catalog.setProductPrice(bread, 2.00);
-//        theCart.addItem(milk);
-//        theCart.addItem(bread);
-//
-//        // WHEN
-//        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-//
-//        // THEN
-//        assertThat(receipt.getTotalPrice()).isEqualTo(3.00);
-//
-//    }
+
+    @Test
+    public void a_receipt_should_show_the_total_price_when_two_items_of_different_types_in_the_cart() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product milk = new Product("Milk", 1.00);
+        Product bread = new Product("Bread", 2.00);
+        theCart.addItem(milk);
+        theCart.addItem(bread);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(3.00);
+
+    }
+
+    @Test
+    public void a_receipt_should_show_the_list_of_purchased_items() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product milk = new Product("Milk", 1.00);
+        Product bread = new Product("Bread", 2.00);
+        theCart.addItem(milk);
+        theCart.addItem(bread);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getPurchasedItems()).contains(milk);
+        assertThat(receipt.getPurchasedItems()).contains(bread);
+
+    }
 }
