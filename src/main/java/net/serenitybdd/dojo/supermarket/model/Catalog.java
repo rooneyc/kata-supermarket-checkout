@@ -10,6 +10,7 @@ public class Catalog {
     private List<Product> products = new ArrayList<>();
     private Map<Product, Double> fixedDiscount = new HashMap<>();
     private Map<Product, Double> percentageDiscount = new HashMap<>();
+    private Map<Product, Promotion> deals = new HashMap<>();
 
     public void addFixedDiscount(Product product, double discount) {
         fixedDiscount.put(product, discount);
@@ -36,14 +37,19 @@ public class Catalog {
         return percentageDiscount.get(product);
     }
 
-    public void addDeal(Product apple, Promotion deal) {
+    public void addDeal(Product product, Promotion deal) {
+        deals.put(product, deal);
     }
 
-    boolean hasPercentageDiscountOnQuantityFor(Product product) {
-        return false;
+    boolean hasDealFor(Product product) {
+        return deals.containsKey(product);
     }
 
-    int quantityRequiredForDiscount() {
-        return 0;
+    int quantityRequiredForDiscount(Product product) {
+        return deals.get(product).getMinQuantity();
+    }
+
+    double discount(Product product) {
+        return deals.get(product).getDiscount();
     }
 }

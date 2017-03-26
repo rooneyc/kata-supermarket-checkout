@@ -21,9 +21,12 @@ public class Teller {
                 totalPrice = totalPrice + product.getPrice() - catalog.getFixedDiscountFor(product);
             } else if (catalog.hasPercentageDiscountFor(product)) {
                 totalPrice = totalPrice + (product.getPrice() * (1.00 - catalog.getPercentageDiscount(product)));
-            } else if (catalog.hasPercentageDiscountOnQuantityFor(product)) {
-                if (Collections.frequency(receipt.getPurchasedItems(), product) == catalog.quantityRequiredForDiscount()) {
-
+            } else if (catalog.hasDealFor(product)) {
+                totalPrice = totalPrice + product.getPrice();
+                int dealItemsPurchased = Collections.frequency(receipt.getPurchasedItems(), product);
+                if (dealItemsPurchased > catalog.quantityRequiredForDiscount(product)) {
+                    double discount = dealItemsPurchased*product.getPrice()*catalog.discount(product);
+                    totalPrice = totalPrice - discount;
                 }
             } else {
                 totalPrice = totalPrice + product.getPrice();
