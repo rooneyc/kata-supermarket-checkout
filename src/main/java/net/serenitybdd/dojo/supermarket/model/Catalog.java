@@ -1,17 +1,14 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Catalog {
 
-    private List<Product> products = new ArrayList<>();
     private Map<Product, Promotion> deals = new HashMap<>();
 
-    public void addFixedDiscount(Product product, double discount) {
-        double percentage = discount/product.getPrice();
+    public void addFixedDiscount(Product product, int fixedDiscount) {
+        double percentage = (double)fixedDiscount/product.getPrice();
         deals.put(product, new Promotion(0, percentage));
     }
 

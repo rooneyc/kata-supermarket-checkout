@@ -30,14 +30,14 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product milk = new Product("Milk", 1.00);
+        Product milk = new Product("Milk", 100);
         theCart.addItem(milk);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice());
+        assertThat(receipt.getTotalPrice()).isEqualTo(1.00);
 
     }
 
@@ -48,14 +48,14 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product milk = new Product("Milk", 1.00);
+        Product milk = new Product("Milk", 100);
         theCart.add(milk).times(3);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*3);
+        assertThat(receipt.getTotalPrice()).isEqualTo(3.00);
 
     }
 
@@ -66,8 +66,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product milk = new Product("Milk", 1.00);
-        Product bread = new Product("Bread", 2.00);
+        Product milk = new Product("Milk", 100);
+        Product bread = new Product("Bread", 200);
         theCart.addItem(milk);
         theCart.addItem(bread);
 
@@ -86,8 +86,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product milk = new Product("Milk", 1.00);
-        Product bread = new Product("Bread", 2.00);
+        Product milk = new Product("Milk", 100);
+        Product bread = new Product("Bread", 200);
         theCart.addItem(milk);
         theCart.addItem(bread);
 
@@ -107,8 +107,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product oranges = new Product("1Kg Bag of Oranges", 5.00);
-        catalog.addFixedDiscount(oranges, 1.00);
+        Product oranges = new Product("1Kg Bag of Oranges", 500);
+        catalog.addFixedDiscount(oranges, 100);
         theCart.addItem(oranges);
 
         // WHEN
@@ -125,12 +125,12 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product oranges = new Product("1Kg Bag of Oranges", 5.00);
-        Product bananas = new Product("2Kg Bag of Oranges", 6.00);
-        Product grapes = new Product("0.5Kg Bag of Oranges", 3.00);
-        catalog.addFixedDiscount(oranges, 1.00);
-        catalog.addFixedDiscount(bananas, 2.00);
-        catalog.addFixedDiscount(grapes, 0.50);
+        Product oranges = new Product("1Kg Bag of Oranges", 500);
+        Product bananas = new Product("2Kg Bag of Oranges", 600);
+        Product grapes = new Product("0.5Kg Bag of Oranges", 300);
+        catalog.addFixedDiscount(oranges, 100);
+        catalog.addFixedDiscount(bananas, 200);
+        catalog.addFixedDiscount(grapes, 50);
         theCart.addItem(oranges);
         theCart.addItem(bananas);
         theCart.addItem(grapes);
@@ -149,7 +149,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product rice = new Product("1Kg Bag of Rice", 10.00);
+        Product rice = new Product("1Kg Bag of Rice", 1000);
         catalog.addPercentageDiscount(rice, 0.10);
         theCart.addItem(rice);
 
@@ -167,9 +167,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product rice = new Product("1Kg Bag of Rice", 10.00);
-        Product biscuits = new Product("Jaffa Cakes", 5.60);
-        Product tea = new Product("Tea Bags", 20.00);
+        Product rice = new Product("1Kg Bag of Rice", 1000);
+        Product biscuits = new Product("Jaffa Cakes", 560);
+        Product tea = new Product("Tea Bags", 2000);
         catalog.addPercentageDiscount(rice, 0.10);
         catalog.addPercentageDiscount(biscuits, 0.15);
         catalog.addPercentageDiscount(tea, 0.20);
@@ -191,7 +191,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product apple = new Product("Apple", 0.50);
+        Product apple = new Product("Apple", 50);
         Promotion deal = new Promotion(10, 0.20);
         catalog.addDeal(apple, deal);
         theCart.add(apple).times(11);
@@ -211,16 +211,20 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product apple = new Product("Apple", 0.50);
-        Promotion deal = new Promotion(10, 0.20);
-        catalog.addDeal(apple, deal);
+        Product apple = new Product("Apple", 50);
+        Product cheese = new Product("Cheese", 450);
+        Promotion appleDeal = new Promotion(10, 0.2); //4.4
+        Promotion cheeseDeal = new Promotion(3, 0.4); //10.8
+        catalog.addDeal(apple, appleDeal);
+        catalog.addDeal(cheese, cheeseDeal);
         theCart.add(apple).times(11);
+        theCart.add(cheese).times(4);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(4.40);
+        assertThat(receipt.getTotalPrice()).isEqualTo(15.2);
 
     }
 
@@ -230,7 +234,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
-        Product toothBrush = new Product("Toothbrush", 3.50);
+        Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyGetFreeDeal(toothBrush, 2, 1);
         theCart.addItem(toothBrush);
         theCart.addItem(toothBrush);
@@ -246,3 +250,4 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //if product in two deals, most beneficial deal should apply
 
 }
+

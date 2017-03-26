@@ -4,11 +4,11 @@ public class Promotion {
 
     private int minQuantity;
 
-    private double discount;
+    private double discountPercentage;
 
-    public Promotion(int minQuantity, double discount) {
+    public Promotion(int minQuantity, double discountPercentage) {
         this.minQuantity = minQuantity;
-        this.discount = discount;
+        this.discountPercentage = discountPercentage;
     }
 
     int getMinQuantity() {
@@ -16,7 +16,7 @@ public class Promotion {
     }
 
     double getDiscount() {
-        return discount;
+        return discountPercentage;
     }
 
 }
