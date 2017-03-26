@@ -1,19 +1,29 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
 
+    Catalog catalog;
+
+    Teller teller;
+
+    ShoppingCart theCart;
+
+
+    @Before
+    public void setup() {
+        catalog = new Catalog();
+        teller = new Teller(catalog);
+        theCart = new ShoppingCart();
+    }
+
     @Test
     public void an_empty_shopping_cart_should_cost_nothing() {
-
-        // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -27,9 +37,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_receipt_should_show_the_total_price_when_one_item_in_the_cart() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 100);
         theCart.addItem(milk);
 
@@ -45,9 +52,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_receipt_should_show_the_total_price_when_several_items_of_same_type_in_the_cart() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 100);
         theCart.add(milk).times(3);
 
@@ -63,9 +67,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_two_items_of_different_types_in_the_cart() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 100);
         Product bread = new Product("Bread", 200);
         theCart.addItem(milk);
@@ -83,9 +84,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_receipt_should_show_the_list_of_purchased_items() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product milk = new Product("Milk", 100);
         Product bread = new Product("Bread", 200);
         theCart.addItem(milk);
@@ -104,9 +102,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_item_in_cart_on_fixed_discount_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product oranges = new Product("1Kg Bag of Oranges", 500);
         catalog.addFixedDiscount(oranges, 100);
         theCart.addItem(oranges);
@@ -122,9 +117,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_several_items_in_cart_on_fixed_discount_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product oranges = new Product("1Kg Bag of Oranges", 500);
         Product bananas = new Product("2Kg Bag of Oranges", 600);
         Product grapes = new Product("0.5Kg Bag of Oranges", 300);
@@ -146,9 +138,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_item_in_cart_on_percentage_discount_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product rice = new Product("1Kg Bag of Rice", 1000);
         catalog.addPercentageDiscount(rice, 0.10);
         theCart.addItem(rice);
@@ -164,9 +153,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_several_items_in_cart_on_percentage_discount_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product rice = new Product("1Kg Bag of Rice", 1000);
         Product biscuits = new Product("Colourful Cakes", 560);
         Product tea = new Product("Tea Bags", 2000);
@@ -188,9 +174,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_item_in_cart_on_percentage_discount_for_quantity_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product apple = new Product("Apple", 50);
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
         theCart.add(apple).times(11);
@@ -207,9 +190,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_several_items_in_cart_on_percentage_discount_for_quantity_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product apple = new Product("Apple", 50);
         Product cheese = new Product("Cheese", 450);
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
@@ -229,9 +209,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_item_in_cart_on_buy_two_get_one_free_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyAndGetSomeFreeDeal(2, toothBrush,1);
         theCart.add(toothBrush).times(2);
@@ -248,9 +225,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_total_should_account_for_item_in_cart_on_buy_four_get_one_free_deal() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
         Product floss = new Product("Floss", 150);
         catalog.addBuyAndGetSomeFreeDeal(4, floss,2);
         theCart.add(floss).times(4);
@@ -267,10 +241,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void receipt_should_account_for_several_special_deals() throws Exception {
 
         // GIVEN
-        Catalog catalog = new Catalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
-
         Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyAndGetSomeFreeDeal(2, toothBrush, 1);
         theCart.add(toothBrush).times(2);
@@ -292,9 +262,25 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    //3 for 130, 2 for 45 i.e. quantity for fixed price
+    @Test
+    public void receipt_total_should_account_for_item_in_cart_on_buy_multiple_for_set_price_deal() throws Exception {
 
-    //any 5 chocolate bars for £2
+        // GIVEN
+        Product suncream = new Product("Suncream", 1700);
+        catalog.addBuyQuantityForFixedPriceDeal(2, suncream, 3000);
+        theCart.add(suncream).times(2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(30.00);
+
+    }
+
+    //should not scan items not in catalogue (i.e. bought in another shop)
+
+     //any 5 chocolate bars for £2
 
     //coupons
 
