@@ -104,8 +104,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_receipt_should_show_correct_total_price_when_items_on_fixed_discount_deal_in_cart() throws Exception {
 
         // GIVEN
-        Product oranges = new Product("1Kg Bag of Oranges", 5.00); //1.00 discount
-        Product banannas = new Product("2Kg Bag of Oranges", 6.00); //2.00 discount
+        Product oranges = new Product("1Kg Bag of Oranges", 5.00);
+        Product banannas = new Product("2Kg Bag of Oranges", 6.00);
         Catalog catalog = new Catalog();
         catalog.addFixedDiscount(oranges, 1.00);
         catalog.addFixedDiscount(banannas, 2.00);

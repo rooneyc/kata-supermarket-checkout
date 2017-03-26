@@ -17,8 +17,8 @@ public class Teller {
         double totalPrice = 0.00;
         for (Product product : products) {
             receipt.addItem(product);
-            if ("1Kg Bag of Oranges".equals(product.getName())) {
-                totalPrice = totalPrice + product.getPrice() - 1.00;
+            if (catalog.hasFixedDiscountFor(product)) {
+                totalPrice = totalPrice + product.getPrice() - catalog.getFixedDiscountFor(product);
             } else {
                 totalPrice = totalPrice + product.getPrice();
             }
