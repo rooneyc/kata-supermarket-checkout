@@ -9,6 +9,7 @@ public class Catalog {
 
     private List<Product> products = new ArrayList<>();
     private Map<Product, Double> fixedDiscount = new HashMap<>();
+    private Map<Product, Double> percentageDiscount = new HashMap<>();
 
     public void addFixedDiscount(Product product, double discount) {
         fixedDiscount.put(product, discount);
@@ -20,5 +21,9 @@ public class Catalog {
 
     double getFixedDiscountFor(Product product) {
         return fixedDiscount.get(product);
+    }
+
+    public void addPercentageDiscount(Product product, double percentage) {
+        percentageDiscount.put(product, percentage);
     }
 }

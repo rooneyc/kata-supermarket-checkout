@@ -101,7 +101,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_receipt_should_show_correct_total_price_when_items_on_fixed_discount_deal_in_cart() throws Exception {
+    public void a_receipt_should_show_correct_total_price_when_items_in_cart_on_fixed_discount_deal() throws Exception {
 
         // GIVEN
         Product oranges = new Product("1Kg Bag of Oranges", 5.00);
@@ -120,6 +120,27 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(8.00);
     }
+
+    @Test
+    public void a_receipt_should_show_correct_total_price_when_item_in_cart_on_percentage_discount_deal() throws Exception {
+
+        // GIVEN
+        Product rice = new Product("1Kg Bag of Rice", 10.00);
+        Catalog catalog = new Catalog();
+        catalog.addPercentageDiscount(rice, 0.10);
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(rice);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(9.00);
+
+
+    }
+
 
     //    @Test
 //    public void a_receipt_should_show_the_correct_total_price_when_buy_two_get_one_free_items_in_cart() throws Exception {
