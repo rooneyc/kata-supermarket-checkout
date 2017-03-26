@@ -32,34 +32,35 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Product milk = new Product("Milk", 1.00);
         catalog.add(milk);
         theCart.addItem(milk);
+        theCart.addItem(milk);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice());
+        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*2);
 
     }
 
-//    @Test
-//    public void a_receipt_should_show_the_total_price_when_two_items_of_same_type_in_the_cart() throws Exception {
-//
-//        // GIVEN
-//        Catalog catalog = new Catalog();
-//        Teller teller = new Teller(catalog);
-//        ShoppingCart theCart = new ShoppingCart();
-//        Product milk = new Product();
-//        catalog.setProductPrice(milk, 1.00);
-//        theCart.addItem(milk);
-//        theCart.addItem(milk);
-//
-//        // WHEN
-//        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-//
-//        // THEN
-//        assertThat(receipt.getTotalPrice()).isEqualTo(catalog.getProductPrice(milk)*2);
-//
-//    }
+    @Test
+    public void a_receipt_should_show_the_total_price_when_two_items_of_same_type_in_the_cart() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product milk = new Product("Milk", 1.00);
+        catalog.add(milk);
+        theCart.addItem(milk);
+        theCart.addItem(milk);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(milk.getPrice()*2);
+
+    }
 //
 //    @Test
 //    public void a_receipt_should_show_the_total_price_when_two_items_of_different_types_in_the_cart() throws Exception {
