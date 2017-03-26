@@ -12,8 +12,8 @@ public class Catalog {
         deals.put(product, new Promotion(0, percentage));
     }
 
-    public void addPercentageDiscount(Product product, double percentage) {
-        deals.put(product, new Promotion(0, percentage));
+    public void addPercentageDiscount(Product product, double percentageDiscount) {
+        deals.put(product, new Promotion(0, percentageDiscount));
     }
 
     public void addDeal(Product product, Promotion deal) {
@@ -32,9 +32,13 @@ public class Catalog {
         return deals.get(product).getDiscount();
     }
 
-    public void addBuyGetFreeDeal(Product product, int buy, int getFree) {
+    public void addBuySomeGetSomeFreeDeal(int buy, Product product, int getFree) {
         double percentage = (double)getFree/(double)buy;
         int mustBuyMoreThan = buy - 1;
         deals.put(product, new Promotion(mustBuyMoreThan, percentage));
+    }
+
+    public void addDiscountForQuantityDeal(int mustBuyMoreThan, Product product, double percentageDiscount) {
+        deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
     }
 }

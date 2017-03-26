@@ -192,8 +192,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product apple = new Product("Apple", 50);
-        Promotion deal = new Promotion(10, 0.20);
-        catalog.addDeal(apple, deal);
+        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
         theCart.add(apple).times(11);
 
         // WHEN
@@ -213,10 +212,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         ShoppingCart theCart = new ShoppingCart();
         Product apple = new Product("Apple", 50);
         Product cheese = new Product("Cheese", 450);
-        Promotion appleDeal = new Promotion(10, 0.2); //4.4
-        Promotion cheeseDeal = new Promotion(3, 0.4); //10.8
-        catalog.addDeal(apple, appleDeal);
-        catalog.addDeal(cheese, cheeseDeal);
+        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        catalog.addDiscountForQuantityDeal(3, cheese, 0.40);
         theCart.add(apple).times(11);
         theCart.add(cheese).times(4);
 
@@ -229,21 +226,69 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void receipt_total_should_account_for_items_in_cart_on_buy_two_get_one_free_deal() throws Exception {
+    public void receipt_total_should_account_for_item_in_cart_on_buy_two_get_one_free_deal() throws Exception {
+
         // GIVEN
         Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
         Product toothBrush = new Product("Toothbrush", 350);
-        catalog.addBuyGetFreeDeal(toothBrush, 2, 1);
-        theCart.addItem(toothBrush);
-        theCart.addItem(toothBrush);
+        catalog.addBuySomeGetSomeFreeDeal(2, toothBrush,1);
+        theCart.add(toothBrush).times(2);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(3.50);
+
+    }
+
+    @Test
+    public void receipt_total_should_account_for_item_in_cart_on_buy_four_get_one_free_deal() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product floss = new Product("Floss", 150);
+        catalog.addBuySomeGetSomeFreeDeal(4, floss,2);
+        theCart.add(floss).times(4);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(3.00);
+
+    }
+
+    @Test
+    public void receipt_should_account_for_several_special_deals() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+
+        Product toothBrush = new Product("Toothbrush", 350);
+        catalog.addBuySomeGetSomeFreeDeal(2, toothBrush, 1);
+        theCart.add(toothBrush).times(2);
+
+        Product floss = new Product("Toothbrush", 150);
+        catalog.addBuySomeGetSomeFreeDeal(4, floss, 1);
+        theCart.add(floss).times(4);
+
+        Product apple = new Product("Apple", 50);
+        Promotion deal = new Promotion(10, 0.20);
+        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        theCart.add(apple).times(11);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(12.40);
 
     }
 
