@@ -37,4 +37,8 @@ public class Catalog {
     public void addDiscountForQuantityDeal(int mustBuyMoreThan, Product product, double percentageDiscount) {
         deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
     }
+
+    public void addBuyQuantityForFixedPriceDeal(int mustBuyMoreThan, Product product, int fixedPrice) {
+
+    }
 }
