@@ -99,4 +99,23 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.getPurchasedItems()).contains(bread);
 
     }
+
+    @Test
+    public void a_receipt_should_show_the_total_price_for_but_two_get_one_free_special_deal_items() throws Exception {
+        // GIVEN
+        Catalog catalog = new Catalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product juice = new Product("Orange Juice", 1.00);
+        theCart.addItem(juice);
+        theCart.addItem(juice);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(1.00);
+
+    }
+
 }
