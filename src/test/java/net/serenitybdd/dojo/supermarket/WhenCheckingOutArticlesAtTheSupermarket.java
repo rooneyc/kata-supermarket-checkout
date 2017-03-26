@@ -284,6 +284,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //coupons
 
+    //Buy item X and get  % discount on item Y
+
+    //Save X amount when you spend Y amount or more - Voucher
+
     //mixed item deal e.g. valentines meal, dinner + desert + wine for X
 
     //free catalogue item e.g. friday night deal buy 2 x bear and 1 x pizza get 1 box salted crackers free
@@ -293,6 +297,12 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //offer combination rules i.e. this offer cannot be combined with an other offer e.g. coupons
 
     //if product qualifies for two deals, most beneficial deal should apply
+
+    //Free delivery for all orders over X amount
+
+    //delivery costs change per timslot
+
+    //
 
 }
 
