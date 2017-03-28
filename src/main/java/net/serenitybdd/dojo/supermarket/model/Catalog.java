@@ -16,16 +16,8 @@ public class Catalog {
         deals.put(product, new Promotion(0, percentageDiscount));
     }
 
-    boolean hasDealFor(Product product) {
+    private boolean hasDealFor(Product product) {
         return deals.containsKey(product);
-    }
-
-    int quantityRequiredForDiscount(Product product) {
-        return deals.get(product).getMustBuyMoreThan();
-    }
-
-    double discountFor(Product product) {
-        return deals.get(product).getDiscount();
     }
 
     public void addBuyAndGetSomeFreeDeal(int buy, Product product, int getFree) {
@@ -38,7 +30,18 @@ public class Catalog {
         deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
     }
 
-    public void addBuyQuantityForFixedPriceDeal(int mustBuyMoreThan, Product product, int fixedPrice) {
+//    public void addBuyQuantityForFixedPriceDeal(int mustBuyMoreThan, Product product, int fixedPrice) {
+//
+//    }
 
+    double priceAfterPromotion(Product product, int quantityOfProduct) {
+
+        double price = product.getPrice();
+
+        if (this.hasDealFor(product)) {
+            Promotion promotion = deals.get(product);
+            return promotion.applyDiscount(price, quantityOfProduct);
+        }
+        return price;
     }
 }

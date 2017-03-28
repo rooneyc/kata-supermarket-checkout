@@ -25,13 +25,6 @@ public class Teller {
     }
 
     private double priceAfterPromotion(Product product, int quantityOfProduct) {
-        double price = product.getPrice();
-        if (catalog.hasDealFor(product)) {
-            if (quantityOfProduct > catalog.quantityRequiredForDiscount(product)) {
-                double discount = quantityOfProduct * product.getPrice() * catalog.discountFor(product);
-                return price - discount;
-            }
-        }
-        return price;
+        return catalog.priceAfterPromotion(product, quantityOfProduct);
     }
 }

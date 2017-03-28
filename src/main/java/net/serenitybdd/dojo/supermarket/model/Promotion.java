@@ -19,4 +19,13 @@ public class Promotion {
         return discountPercentage;
     }
 
+    double applyDiscount(double price, int quantityOfProduct) {
+
+        if (quantityOfProduct > mustBuyMoreThan) {
+            double discount = quantityOfProduct * price * discountPercentage;
+            return price - discount;
+        }
+        return price;
+    }
+
 }
