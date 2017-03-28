@@ -2,13 +2,16 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public class Promotion {
 
-    private int mustBuyMoreThan;
+    private int mustBuyMoreThan = 0;
 
-    private double discountPercentage;
+    private double discountPercentage = 0.00;
 
     public Promotion(int mustBuyMoreThan, double discountPercentage) {
         this.mustBuyMoreThan = mustBuyMoreThan;
         this.discountPercentage = discountPercentage;
+    }
+
+    protected Promotion() {
     }
 
     int getMustBuyMoreThan() {
@@ -19,7 +22,7 @@ public class Promotion {
         return discountPercentage;
     }
 
-    double applyDiscount(double price, int quantityOfProduct) {
+    public double applyDiscount(double price, int quantityOfProduct) {
 
         if (quantityOfProduct > mustBuyMoreThan) {
             double discount = quantityOfProduct * price * discountPercentage;
