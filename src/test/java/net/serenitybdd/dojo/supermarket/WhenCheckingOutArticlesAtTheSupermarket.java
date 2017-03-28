@@ -8,11 +8,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
 
-    Catalog catalog;
+    private Catalog catalog;
 
-    Teller teller;
+    private Teller teller;
 
-    ShoppingCart theCart;
+    private ShoppingCart theCart;
 
 
     @Before
@@ -262,21 +262,21 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    @Test
-    public void receipt_total_should_account_for_item_in_cart_on_buy_multiple_for_set_price_deal() throws Exception {
-
-        // GIVEN
-        Product suncream = new Product("Suncream", 1700);
-        catalog.addBuyQuantityForFixedPriceDeal(2, suncream, 3000);
-        theCart.add(suncream).times(2);
-
-        // WHEN
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-
-        // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(30.00);
-
-    }
+//    @Test
+//    public void receipt_total_should_account_for_item_in_cart_on_buy_multiple_for_set_price_deal() throws Exception {
+//
+//        // GIVEN
+//        Product suncream = new Product("Suncream", 1700);
+//        catalog.addBuyQuantityForFixedPriceDeal(2, suncream, 3000);
+//        theCart.add(suncream).times(3);
+//
+//        // WHEN
+//        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+//
+//        // THEN
+//        assertThat(receipt.getTotalPrice()).isEqualTo(30.00);
+//
+//    }
 
     //should not scan items not in catalogue (i.e. bought in another shop)
 

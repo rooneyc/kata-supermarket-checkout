@@ -17,18 +17,21 @@ public class Teller {
         double totalPrice = 0;
         for (Product product : products) {
             receipt.addItem(product);
-            totalPrice = totalPrice + product.getPrice();
-            if (catalog.hasDealFor(product)) {
-                int dealItemsPurchased = Collections.frequency(receipt.getPurchasedItems(), product);
-                if (dealItemsPurchased > catalog.quantityRequiredForDiscount(product)) {
-                    double discount = dealItemsPurchased * product.getPrice() * catalog.discountFor(product);
-                    totalPrice = totalPrice - discount;
-                }
-            }
+            int quantityOfProductPurchasedSoFar = Collections.frequency(receipt.getPurchasedItems(), product);
+            totalPrice = totalPrice + priceAfterPromotion(product, quantityOfProductPurchasedSoFar);
         }
-        receipt.setTotalPrice(totalPrice/100);
+        receipt.setTotalPrice(totalPrice / 100);
         return receipt;
     }
 
-
+    private double priceAfterPromotion(Product product, int quantityOfProduct) {
+        double price = product.getPrice();
+        if (catalog.hasDealFor(product)) {
+            if (quantityOfProduct > catalog.quantityRequiredForDiscount(product)) {
+                double discount = quantityOfProduct * product.getPrice() * catalog.discountFor(product);
+                return price - discount;
+            }
+        }
+        return price;
+    }
 }
