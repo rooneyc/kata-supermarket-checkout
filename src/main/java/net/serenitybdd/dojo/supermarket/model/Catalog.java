@@ -1,5 +1,6 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import net.serenitybdd.dojo.supermarket.model.promotions.BuyAndGetSomeFree;
 import net.serenitybdd.dojo.supermarket.model.promotions.FixedDiscount;
 import net.serenitybdd.dojo.supermarket.model.promotions.PercentageDiscount;
 
@@ -19,14 +20,14 @@ public class Catalog {
         deals.put(product, new PercentageDiscount(percentageDiscount));
     }
 
-    private boolean hasDealFor(Product product) {
-        return deals.containsKey(product);
-    }
-
     public void addBuyAndGetSomeFreeDeal(int buy, Product product, int getFree) {
-        double percentageDiscount = (double)getFree/(double)buy;
-        int mustBuyMoreThan = buy - 1;
-        deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
+
+
+        //double percentageDiscount = (double)getFree/(double)buy;
+
+        //int mustBuyMoreThan = buy - 1;
+
+        deals.put(product, new BuyAndGetSomeFree(buy, getFree));
     }
 
     public void addDiscountForQuantityDeal(int mustBuyMoreThan, Product product, double percentageDiscount) {
@@ -46,5 +47,9 @@ public class Catalog {
             return promotion.applyDiscount(price, quantityOfProduct);
         }
         return price;
+    }
+
+    private boolean hasDealFor(Product product) {
+        return deals.containsKey(product);
     }
 }

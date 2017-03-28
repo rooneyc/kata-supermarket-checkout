@@ -278,6 +278,11 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 //
 //    }
 
+    //each promotion modelled as class
+    //apply promotion per group
+    //joda money
+    //how did I get away with no hashcode, equals?
+
     //should not scan items not in catalogue (i.e. bought in another shop)
 
      //any 5 chocolate bars for £2
@@ -300,7 +305,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //Free delivery for all orders over X amount
 
-    //delivery costs change per timslot
+    //delivery costs change per timeslot
 
     //
 
