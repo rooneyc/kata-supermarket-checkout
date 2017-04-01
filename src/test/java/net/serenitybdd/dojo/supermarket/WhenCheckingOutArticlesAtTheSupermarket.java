@@ -1,7 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
-import net.serenitybdd.dojo.supermarket.model.promotions.QuantityForSetPrice;
+import net.serenitybdd.dojo.supermarket.model.promotions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,7 +104,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product oranges = new Product("1Kg Bag of Oranges", 500);
-        catalog.addFixedDiscount(oranges, 100);
+        catalog.addPromotionForProduct(oranges, new FixedDiscountPerItem(100));
         theCart.addItem(oranges);
 
         // WHEN
@@ -121,9 +121,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Product oranges = new Product("1Kg Bag of Oranges", 500);
         Product bananas = new Product("2Kg Bag of Oranges", 600);
         Product grapes = new Product("0.5Kg Bag of Oranges", 300);
-        catalog.addFixedDiscount(oranges, 100);
-        catalog.addFixedDiscount(bananas, 200);
-        catalog.addFixedDiscount(grapes, 50);
+        catalog.addPromotionForProduct(oranges, new FixedDiscountPerItem(100));
+        catalog.addPromotionForProduct(bananas, new FixedDiscountPerItem(200));
+        catalog.addPromotionForProduct(grapes, new FixedDiscountPerItem(50));
         theCart.addItem(oranges);
         theCart.addItem(bananas);
         theCart.addItem(grapes);
@@ -140,7 +140,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product rice = new Product("1Kg Bag of Rice", 1000);
-        catalog.addPercentageDiscount(rice, 0.10);
+        catalog.addPromotionForProduct(rice, new PercentageDiscountPerItem(0.10));
         theCart.addItem(rice);
 
         // WHEN
@@ -157,9 +157,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Product rice = new Product("1Kg Bag of Rice", 1000);
         Product biscuits = new Product("Colourful Cakes", 560);
         Product tea = new Product("Tea Bags", 2000);
-        catalog.addPercentageDiscount(rice, 0.10);
-        catalog.addPercentageDiscount(biscuits, 0.15);
-        catalog.addPercentageDiscount(tea, 0.20);
+        catalog.addPromotionForProduct(rice, new PercentageDiscountPerItem(0.10));
+        catalog.addPromotionForProduct(biscuits, new PercentageDiscountPerItem(0.15));
+        catalog.addPromotionForProduct(tea, new PercentageDiscountPerItem(0.20));
         theCart.addItem(rice);
         theCart.addItem(biscuits);
         theCart.addItem(tea);
@@ -176,7 +176,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product apple = new Product("Apple", 50);
-        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        catalog.addPromotionForProduct(apple, new DiscountForQuantity(10, 0.20));
         theCart.add(apple).times(11);
 
         // WHEN
@@ -193,8 +193,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Product apple = new Product("Apple", 50);
         Product cheese = new Product("Cheese", 450);
-        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
-        catalog.addDiscountForQuantityDeal(3, cheese, 0.40);
+        catalog.addPromotionForProduct(apple, new DiscountForQuantity(10, 0.20));
+        catalog.addPromotionForProduct(cheese, new DiscountForQuantity(3, 0.40));
         theCart.add(apple).times(11);
         theCart.add(cheese).times(4);
 
@@ -211,7 +211,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product toothBrush = new Product("Toothbrush", 350);
-        catalog.addBuyAndGetSomeFreeDeal(2, toothBrush,1);
+        catalog.addPromotionForProduct(toothBrush, new BuyAndGetSomeFree(2, 1));
         theCart.add(toothBrush).times(3);
 
         // WHEN
@@ -228,7 +228,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product floss = new Product("Floss", 150);
-        catalog.addBuyAndGetSomeFreeDeal(4, floss,2);
+        catalog.addPromotionForProduct(floss, new BuyAndGetSomeFree(4, 2));
         theCart.add(floss).times(6);
 
         // WHEN
@@ -245,19 +245,19 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Product toothBrush = new Product("Toothbrush", 350);
-        catalog.addBuyAndGetSomeFreeDeal(2, toothBrush, 1);
+        catalog.addPromotionForProduct(toothBrush, new BuyAndGetSomeFree(2, 1));
         theCart.add(toothBrush).times(3);
 
         Product floss = new Product("Toothbrush", 150);
-        catalog.addBuyAndGetSomeFreeDeal(4, floss, 1);
+        catalog.addPromotionForProduct(floss, new BuyAndGetSomeFree(4, 1));
         theCart.add(floss).times(5);
 
         Product apple = new Product("Apple", 50);
-        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        catalog.addPromotionForProduct(apple, new DiscountForQuantity(10, 0.20));
         theCart.add(apple).times(11);
 
         Product orange = new Product("Orange", 65);
-        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        catalog.addPromotionForProduct(orange, new DiscountForQuantity(10, 0.20));
         theCart.add(orange).times(8);
 
         // WHEN
@@ -285,6 +285,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.numberOfItemsSold()).isEqualTo(2);
 
     }
+
+    //HAve all tests use addPromotionForProduct
 
     //Next time round
     //apply promotion per group?
