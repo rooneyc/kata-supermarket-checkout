@@ -245,22 +245,22 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyAndGetSomeFreeDeal(2, toothBrush, 1);
-        theCart.add(toothBrush).times(2);
+        theCart.add(toothBrush).times(3); //7
 
         Product floss = new Product("Toothbrush", 150);
         catalog.addBuyAndGetSomeFreeDeal(4, floss, 1);
-        theCart.add(floss).times(4);
+        theCart.add(floss).times(5); //6
 
         Product apple = new Product("Apple", 50);
         Promotion deal = new Promotion(10, 0.20);
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
-        theCart.add(apple).times(11);
+        theCart.add(apple).times(11); //4.4
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(12.40);
+        assertThat(receipt.getTotalPrice()).isEqualTo(17.40);
 
     }
 
@@ -359,7 +359,12 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //Thoughts
     //Buy x get Y free = X+Y for the price of X
-    //Buy X get Y free can be modelled as Buy X+Y for set price
+    //If advertised as buy 2 apples get 1 free what happens if customer only put 2 apples in cart?
+    //Can customer complain to say, retailer did not give customer free apple when checking out?
+    //Safer to phrase as get 3 apples for the price of 2, makes it clear that customer has to put 2 apples in cart.
+    //Or shop could wrap 3 apples in plastic and buy 2 get 1 free
 
+    //http://supermarketjustice.com/avanza-receipt.jpg
+    //https://fizzleblog.files.wordpress.com/2010/12/grocery-receipt-2.jpg?w=756
 }
 
