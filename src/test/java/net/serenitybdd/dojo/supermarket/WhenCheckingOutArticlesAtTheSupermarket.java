@@ -286,8 +286,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    //HAve all tests use addPromotionForProduct
-
     //Next time round
     //apply promotion per group?
     //joda money
