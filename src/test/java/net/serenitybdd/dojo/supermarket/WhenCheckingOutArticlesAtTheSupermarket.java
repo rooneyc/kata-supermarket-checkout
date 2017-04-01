@@ -285,7 +285,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //should not scan items not in catalogue (i.e. bought in another shop)
 
-     //any 5 chocolate bars for £2
+    //any 5 chocolate bars for £2
 
     //coupons
 
@@ -307,7 +307,51 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //delivery costs change per timeslot
 
-    //
+    //compare item price to other supermarkets and calculate savings
+
+    //Substitutions
+    //http://gallery.hd.org/_exhibits/food/_more2007/_more10/Tesco-supermarket-online-order-paper-receipt-at-delivery-extract-mono-2-DHD.png
+
+    //Categories
+    //http://alexpoole.info/blog/supermarket-receipt-with-categories/
+
+    //remove items that scanned then deleted
+
+    //Confirm age before buying Alcohol
+    //http://gallery.hd.org/_exhibits/bizarre/_more2008/_more03/supermarket-receipt-age-check-21-for-garlic-bread-or-newspaper-mono-1-DHD.gif
+
+    //Apply discount as go along?
+    //https://qph.ec.quoracdn.net/main-qimg-1abf0c5608a3ed647285b607f6035c0b-c?convert_to_webp=true
+    //http://c8.alamy.com/comp/D52GT4/supermarket-shopping-bill-till-receipt-showing-multi-buy-savings-important-D52GT4.jpg
+
+    //Apply Discount at end?
+    //https://walaafadul.files.wordpress.com/2016/01/img_0001-1.jpg
+    //http://www.yourlocalguardian.co.uk/resources/images/2493669.jpg?type=articleLandscape
+
+    //D and C
+    //https://onepoundperday.files.wordpress.com/2015/05/onepoundperday_receipt_2015.png
+    //or + and -?
+
+
+    //Show barcodes (I think its confusing but legal?
+    //http://images2.wikia.nocookie.net/__cb20111106201149/groceryreceipts/images/2/22/33612.png
+
+    //Show VAT codes?
+    //http://3.bp.blogspot.com/_vcw3KJyvgv0/TGxT8dhvYBI/AAAAAAAAARY/VyI93KTb9_E/s1600/IMG.jpg
+
+    //Group multiples of same product?
+    //https://normalness.com/wp-content/uploads//2015/09/Woolworths-Receipt.jpg
+    //https://homeschoolingwithguinever.files.wordpress.com/2009/11/meijer-receipt.jpg?w=455
+
+    //Nutritional Data
+    //https://static.dezeen.com/uploads/2016/02/solution-obesity-hayden-peek-packaging-receipt-design_dezeen_1568_0.jpg
+
+    //points for vouchers
+
+    //Thoughts
+    //Buy x get Y free = X+Y for the price of X
+    //Buy X get Y free can be modelled as Buy X+Y for set price
+    //Buy X+Y for set price can't be modelled as percentage discount as might not have a price for selling individually
 
 }
 

@@ -15,8 +15,9 @@ public class BuyAndGetSomeFree extends Promotion{
     @Override
     public double applyDiscount(double price, int quantityOfProduct) {
 
+        double percentageDiscount = (double)getFree/(double)buy;
         if (quantityOfProduct >= buy) {
-            double discount = quantityOfProduct * price * discountPercentage;
+            double discount = quantityOfProduct * price * percentageDiscount;
             return price - discount;
         }
         return price;
