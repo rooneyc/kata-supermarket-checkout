@@ -218,7 +218,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(7.00);
-        assertThat(receipt.numberofItemsSold()).isEqualTo(3);
+        assertThat(receipt.numberOfItemsSold()).isEqualTo(3);
 
     }
 
@@ -235,7 +235,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(6.00);
-        assertThat(receipt.numberofItemsSold()).isEqualTo(6);
+        assertThat(receipt.numberOfItemsSold()).isEqualTo(6);
 
     }
 
@@ -245,16 +245,16 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyAndGetSomeFreeDeal(2, toothBrush, 1);
-        theCart.add(toothBrush).times(3); //7
+        theCart.add(toothBrush).times(3);
 
         Product floss = new Product("Toothbrush", 150);
         catalog.addBuyAndGetSomeFreeDeal(4, floss, 1);
-        theCart.add(floss).times(5); //6
+        theCart.add(floss).times(5);
 
         Product apple = new Product("Apple", 50);
         Promotion deal = new Promotion(10, 0.20);
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
-        theCart.add(apple).times(11); //4.4
+        theCart.add(apple).times(11);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -281,6 +281,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 //    }
 
     //each promotion modelled as class
+    //receipt_should_account_for_several_special_deals buy only 8 apples and don't qualify for deal
+    //i bet deal will still be applied as its counting the total number of products not just apples!
+
+    //Next time round
     //apply promotion per group
     //joda money
     //how did I get away with no hashcode, equals?
