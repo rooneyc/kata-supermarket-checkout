@@ -1,8 +1,5 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-import java.util.Collections;
-import java.util.List;
-
 public class Teller {
 
     private final Catalog catalog;
@@ -13,17 +10,12 @@ public class Teller {
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
         Receipt receipt = new Receipt();
-        List<Product> products = theCart.getItems();
-        double totalPrice = 0;
-        for (Product product : products) {
+        for (Product product : theCart.getItems()) {
             receipt.addItem(product);
-            totalPrice = totalPrice + priceAfterPromotion(product, receipt.quantityOfProductAdded(product));
+            double discount = catalog.calculateDiscount(product, receipt.quantityOfProductAdded(product));
+            receipt.applyDiscount(discount);
         }
-        receipt.setTotalPrice(totalPrice / 100);
         return receipt;
     }
 
-    private double priceAfterPromotion(Product product, int quantityOfProduct) {
-        return catalog.priceAfterPromotion(product, quantityOfProduct);
-    }
 }

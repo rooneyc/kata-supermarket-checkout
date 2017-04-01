@@ -13,12 +13,11 @@ public class DiscountForQuantity implements Promotion {
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProduct) {
+    public double calculateDiscount(double price, int quantityOfProductAddedSoFar) {
 
-        if (quantityOfProduct > mustBuyMoreThan) {
-            double discount = quantityOfProduct * price * percentageDiscount;
-            return price - discount;
+        if (quantityOfProductAddedSoFar > mustBuyMoreThan) {
+            return quantityOfProductAddedSoFar * price * percentageDiscount;
         }
-        return price;
+        return 0.00;
     }
 }

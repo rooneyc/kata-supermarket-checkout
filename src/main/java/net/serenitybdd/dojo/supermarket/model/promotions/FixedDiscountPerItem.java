@@ -11,8 +11,8 @@ public class FixedDiscountPerItem implements Promotion {
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProduct) {
-       return price - discountDiscountInCent;
+    public double calculateDiscount(double price, int quantityOfProductAddedSoFar) {
+       return discountDiscountInCent;
     }
 
 }

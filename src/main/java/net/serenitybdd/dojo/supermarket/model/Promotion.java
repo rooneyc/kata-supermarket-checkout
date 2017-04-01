@@ -2,6 +2,6 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public interface Promotion {
 
-    double applyDiscount(double price, int quantityOfProductSoldSoFar);
+    double calculateDiscount(double price, int quantityOfProductAddedSoFar);
 
 }

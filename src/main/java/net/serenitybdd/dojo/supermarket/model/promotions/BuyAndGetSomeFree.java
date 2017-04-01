@@ -13,12 +13,11 @@ public class BuyAndGetSomeFree implements Promotion {
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProductSoldSoFar) {
+    public double calculateDiscount(double price, int quantityOfProductAddedSoFar) {
 
-        if (quantityOfProductSoldSoFar == quantityRequiredToBuy) {
-            double discount = price * quantityGetFree;
-            return price - discount;
+        if (quantityOfProductAddedSoFar == quantityRequiredToBuy) {
+            return price * quantityGetFree;
         }
-        return price;
+        return 0.00;
     }
 }

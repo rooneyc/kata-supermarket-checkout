@@ -11,8 +11,7 @@ public class PercentageDiscountPerItem implements Promotion{
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProduct) {
-        double discount = price * percentageDiscountInCent;
-        return price - discount;
+    public double calculateDiscount(double price, int quantityOfProductAddedSoFar) {
+        return price * percentageDiscountInCent;
     }
 }

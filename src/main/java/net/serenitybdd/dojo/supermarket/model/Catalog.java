@@ -11,15 +11,13 @@ public class Catalog {
         deals.put(product, promotion);
     }
 
-    double priceAfterPromotion(Product product, int quantityOfProduct) {
-
-        double price = product.getPrice();
+    double calculateDiscount(Product product, int quantityOfProductAddedSoFar) {
 
         if (this.hasDealFor(product)) {
             Promotion promotion = deals.get(product);
-            return promotion.applyDiscount(price, quantityOfProduct);
+            return promotion.calculateDiscount(product.getPrice(), quantityOfProductAddedSoFar);
         }
-        return price;
+        return 0.00;
     }
 
     private boolean hasDealFor(Product product) {

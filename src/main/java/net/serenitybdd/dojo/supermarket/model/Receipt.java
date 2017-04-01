@@ -11,11 +11,7 @@ public class Receipt {
     private double totalPrice;
 
     public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        return totalPrice/100;
     }
 
     public Collection<Product> getPurchasedItems() {
@@ -28,9 +24,14 @@ public class Receipt {
 
     void addItem(Product product) {
         purchasedItems.add(product);
+        totalPrice += product.getPrice();
     }
 
     int quantityOfProductAdded(Product product) {
         return Collections.frequency(purchasedItems, product);
+    }
+
+    void applyDiscount(double discount) {
+        totalPrice -= discount;
     }
 }

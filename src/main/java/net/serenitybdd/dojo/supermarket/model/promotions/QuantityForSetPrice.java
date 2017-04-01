@@ -13,10 +13,11 @@ public class QuantityForSetPrice implements Promotion {
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProductSoldSoFar) {
-        if (quantityOfProductSoldSoFar == quantityRequiredToBuy) {
-            return (-((quantityOfProductSoldSoFar-1)*price) +  setPrice);
+    public double calculateDiscount(double price, int quantityOfProductAddedSoFar) {
+
+        if (quantityOfProductAddedSoFar == quantityRequiredToBuy) {
+            return (quantityOfProductAddedSoFar*price) - setPrice;
         }
-        return price;
+        return 0.00;
     }
 }
