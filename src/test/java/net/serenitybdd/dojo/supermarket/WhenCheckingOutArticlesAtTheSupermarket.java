@@ -211,13 +211,13 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Product toothBrush = new Product("Toothbrush", 350);
         catalog.addBuyAndGetSomeFreeDeal(2, toothBrush,1);
-        theCart.add(toothBrush).times(2);
+        theCart.add(toothBrush).times(3);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(3.50);
+        assertThat(receipt.getTotalPrice()).isEqualTo(7.00);
         assertThat(receipt.numberofItemsSold()).isEqualTo(3);
 
     }
@@ -228,13 +228,14 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Product floss = new Product("Floss", 150);
         catalog.addBuyAndGetSomeFreeDeal(4, floss,2);
-        theCart.add(floss).times(4);
+        theCart.add(floss).times(6);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(3.00);
+        assertThat(receipt.getTotalPrice()).isEqualTo(6.00);
+        assertThat(receipt.numberofItemsSold()).isEqualTo(6);
 
     }
 
@@ -327,6 +328,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //http://c8.alamy.com/comp/D52GT4/supermarket-shopping-bill-till-receipt-showing-multi-buy-savings-important-D52GT4.jpg
     //http://theharristeeterdeals.com/wp-content/uploads/2016/05/13234964_10156902145845111_347214210_o-2-e1463599717842.jpg
     //http://whatsyourdeal.com/grocery-coupons/wp-content/uploads/2017/02/20170206_143556.jpg
+    //https://www.shopandscan.com/receipts/images/sas_tillreceipt1.bmp
 
     //Apply Promotion at end?
     //https://walaafadul.files.wordpress.com/2016/01/img_0001-1.jpg
@@ -353,10 +355,11 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //points for vouchers
 
+    //X for Y cheapest free e.g. veg 3 for 2 cheapest free
+
     //Thoughts
     //Buy x get Y free = X+Y for the price of X
     //Buy X get Y free can be modelled as Buy X+Y for set price
-    //Buy X+Y for set price can't be modelled as percentage discount as might not have a price for selling individually
 
 }
 

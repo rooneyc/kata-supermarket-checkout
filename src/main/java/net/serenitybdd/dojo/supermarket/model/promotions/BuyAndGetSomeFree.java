@@ -8,16 +8,15 @@ public class BuyAndGetSomeFree extends Promotion{
     private int getFree;
 
     public BuyAndGetSomeFree(int buy, int getFree) {
-        this.buy = buy;
+        this.buy = buy + getFree;
         this.getFree = getFree;
     }
 
     @Override
     public double applyDiscount(double price, int quantityOfProduct) {
 
-        double percentageDiscount = (double)getFree/(double)buy;
-        if (quantityOfProduct >= buy) {
-            double discount = quantityOfProduct * price * percentageDiscount;
+        if (quantityOfProduct == buy) {
+            double discount = price * getFree;
             return price - discount;
         }
         return price;
