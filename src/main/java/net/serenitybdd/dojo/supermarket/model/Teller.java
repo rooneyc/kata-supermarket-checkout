@@ -17,8 +17,7 @@ public class Teller {
         double totalPrice = 0;
         for (Product product : products) {
             receipt.addItem(product);
-            int quantityOfProductPurchasedSoFar = Collections.frequency(receipt.getPurchasedItems(), product);
-            totalPrice = totalPrice + priceAfterPromotion(product, quantityOfProductPurchasedSoFar);
+            totalPrice = totalPrice + priceAfterPromotion(product, receipt.quantityOfProductAdded(product));
         }
         receipt.setTotalPrice(totalPrice / 100);
         return receipt;

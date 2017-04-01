@@ -2,6 +2,7 @@ package net.serenitybdd.dojo.supermarket.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class Receipt {
 
@@ -29,4 +30,7 @@ public class Receipt {
         purchasedItems.add(product);
     }
 
+    int quantityOfProductAdded(Product product) {
+        return Collections.frequency(purchasedItems, product);
+    }
 }
