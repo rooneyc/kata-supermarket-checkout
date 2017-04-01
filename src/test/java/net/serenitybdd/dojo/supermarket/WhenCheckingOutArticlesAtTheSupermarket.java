@@ -255,6 +255,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
         theCart.add(apple).times(11);
 
+        Product orange = new Product("Orange", 65);
+        catalog.addDiscountForQuantityDeal(10, apple, 0.20);
+        theCart.add(orange).times(8);
+
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
