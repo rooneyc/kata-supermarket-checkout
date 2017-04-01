@@ -12,6 +12,7 @@ public class DiscountForQuantity extends Promotion {
         this.percentageDiscount = percentageDiscount;
     }
 
+    @Override
     public double applyDiscount(double price, int quantityOfProduct) {
 
         if (quantityOfProduct > mustBuyMoreThan) {

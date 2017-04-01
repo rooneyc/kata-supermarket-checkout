@@ -14,14 +14,6 @@ public class Promotion {
     protected Promotion() {
     }
 
-    int getMustBuyMoreThan() {
-        return mustBuyMoreThan;
-    }
-
-    double getDiscount() {
-        return discountPercentage;
-    }
-
     public double applyDiscount(double price, int quantityOfProduct) {
 
         if (quantityOfProduct > mustBuyMoreThan) {

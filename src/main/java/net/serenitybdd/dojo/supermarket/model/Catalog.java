@@ -22,23 +22,12 @@ public class Catalog {
     }
 
     public void addBuyAndGetSomeFreeDeal(int buy, Product product, int getFree) {
-
-
-//        double percentageDiscount = (double)getFree/(double)buy;
-//        int mustBuyMoreThan = buy - 1;
-//        deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
-
         deals.put(product, new BuyAndGetSomeFree(buy, getFree));
     }
 
     public void addDiscountForQuantityDeal(int mustBuyMoreThan, Product product, double percentageDiscount) {
-        //deals.put(product, new Promotion(mustBuyMoreThan, percentageDiscount));
         deals.put(product, new DiscountForQuantity(mustBuyMoreThan, percentageDiscount));
     }
-
-//    public void addBuyQuantityForFixedPriceDeal(int mustBuyMoreThan, Product product, int fixedPrice) {
-//
-//    }
 
     double priceAfterPromotion(Product product, int quantityOfProduct) {
 
@@ -54,4 +43,5 @@ public class Catalog {
     private boolean hasDealFor(Product product) {
         return deals.containsKey(product);
     }
+
 }

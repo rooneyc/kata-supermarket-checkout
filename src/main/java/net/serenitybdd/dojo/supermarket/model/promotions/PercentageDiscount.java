@@ -4,15 +4,15 @@ import net.serenitybdd.dojo.supermarket.model.Promotion;
 
 public class PercentageDiscount extends Promotion{
 
-    private final double percentageDiscount;
+    private final double percentageDiscountInCent;
 
-    public PercentageDiscount(double discount) {
-        this.percentageDiscount = discount;
+    public PercentageDiscount(double percentageDiscountInCent) {
+        this.percentageDiscountInCent = percentageDiscountInCent;
     }
 
     @Override
     public double applyDiscount(double price, int quantityOfProduct) {
-        double discount = price * percentageDiscount;
+        double discount = price * percentageDiscountInCent;
         return price - discount;
     }
 }
