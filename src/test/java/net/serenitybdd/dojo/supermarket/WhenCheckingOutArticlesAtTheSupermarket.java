@@ -218,6 +218,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(receipt.getTotalPrice()).isEqualTo(3.50);
+        assertThat(receipt.numberofItemsSold()).isEqualTo(3);
 
     }
 
@@ -288,6 +289,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //any 5 chocolate bars for £2
 
     //coupons
+    //http://2.bp.blogspot.com/-ipLVms6ubJI/TYFK72YzSLI/AAAAAAAABs4/7xvT5WIAAoM/s1600/publix%2Breceipt%2B3-15-11.JPG
 
     //Buy item X and get  % discount on item Y
 
@@ -320,13 +322,16 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //Confirm age before buying Alcohol
     //http://gallery.hd.org/_exhibits/bizarre/_more2008/_more03/supermarket-receipt-age-check-21-for-garlic-bread-or-newspaper-mono-1-DHD.gif
 
-    //Apply discount as go along?
+    //Apply Promotion as go along?
     //https://qph.ec.quoracdn.net/main-qimg-1abf0c5608a3ed647285b607f6035c0b-c?convert_to_webp=true
     //http://c8.alamy.com/comp/D52GT4/supermarket-shopping-bill-till-receipt-showing-multi-buy-savings-important-D52GT4.jpg
+    //http://theharristeeterdeals.com/wp-content/uploads/2016/05/13234964_10156902145845111_347214210_o-2-e1463599717842.jpg
+    //http://whatsyourdeal.com/grocery-coupons/wp-content/uploads/2017/02/20170206_143556.jpg
 
-    //Apply Discount at end?
+    //Apply Promotion at end?
     //https://walaafadul.files.wordpress.com/2016/01/img_0001-1.jpg
     //http://www.yourlocalguardian.co.uk/resources/images/2493669.jpg?type=articleLandscape
+    //http://i.imgur.com/zY4R9Yxl.jpg
 
     //D and C
     //https://onepoundperday.files.wordpress.com/2015/05/onepoundperday_receipt_2015.png

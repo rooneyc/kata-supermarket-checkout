@@ -21,6 +21,10 @@ public class Receipt {
         return purchasedItems;
     }
 
+    public int numberofItemsSold() {
+        return purchasedItems.size();
+    }
+
     void addItem(Product product) {
         purchasedItems.add(product);
     }
