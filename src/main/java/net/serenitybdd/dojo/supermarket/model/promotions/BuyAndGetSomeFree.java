@@ -2,7 +2,7 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class BuyAndGetSomeFree extends Promotion {
+public class BuyAndGetSomeFree implements Promotion {
 
     private int buy;
     private int getFree;

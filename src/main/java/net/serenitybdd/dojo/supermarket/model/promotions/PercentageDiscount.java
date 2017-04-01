@@ -2,7 +2,7 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class PercentageDiscount extends Promotion{
+public class PercentageDiscount implements Promotion{
 
     private final double percentageDiscountInCent;
 

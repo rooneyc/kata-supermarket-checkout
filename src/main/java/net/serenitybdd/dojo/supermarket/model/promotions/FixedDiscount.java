@@ -2,7 +2,7 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class FixedDiscount extends Promotion {
+public class FixedDiscount implements Promotion {
 
     private int discountDiscountInCent = 0;
 

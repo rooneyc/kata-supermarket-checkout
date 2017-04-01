@@ -252,7 +252,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         theCart.add(floss).times(5);
 
         Product apple = new Product("Apple", 50);
-        Promotion deal = new Promotion(10, 0.20);
         catalog.addDiscountForQuantityDeal(10, apple, 0.20);
         theCart.add(apple).times(11);
 

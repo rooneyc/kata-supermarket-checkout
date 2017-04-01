@@ -2,7 +2,7 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class DiscountForQuantity extends Promotion {
+public class DiscountForQuantity implements Promotion {
 
     private int mustBuyMoreThan;
     private double percentageDiscount;
