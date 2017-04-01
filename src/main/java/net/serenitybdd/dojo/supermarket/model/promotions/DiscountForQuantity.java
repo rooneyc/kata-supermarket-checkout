@@ -4,8 +4,8 @@ import net.serenitybdd.dojo.supermarket.model.Promotion;
 
 public class DiscountForQuantity implements Promotion {
 
-    private int mustBuyMoreThan;
-    private double percentageDiscount;
+    private final int mustBuyMoreThan;
+    private final double percentageDiscount;
 
     public DiscountForQuantity(int mustBuyMoreThan, double percentageDiscount) {
         this.mustBuyMoreThan = mustBuyMoreThan;

@@ -1,6 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import net.serenitybdd.dojo.supermarket.model.promotions.QuantityForSetPrice;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -263,32 +264,30 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice()).isEqualTo(17.40);
+        assertThat(receipt.getTotalPrice()).isEqualTo(22.60);
 
     }
 
-//    @Test
-//    public void receipt_total_should_account_for_item_in_cart_on_buy_multiple_for_set_price_deal() throws Exception {
-//
-//        // GIVEN
-//        Product suncream = new Product("Suncream", 1700);
-//        catalog.addBuyQuantityForFixedPriceDeal(2, suncream, 3000);
-//        theCart.add(suncream).times(3);
-//
-//        // WHEN
-//        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-//
-//        // THEN
-//        assertThat(receipt.getTotalPrice()).isEqualTo(30.00);
-//
-//    }
+    @Test
+    public void receipt_total_should_account_for_item_in_cart_on_buy_multiple_for_set_price_deal() throws Exception {
 
-    //each promotion modelled as class
-    //receipt_should_account_for_several_special_deals buy only 8 apples and don't qualify for deal
-    //i bet deal will still be applied as its counting the total number of products not just apples!
+        // GIVEN
+        Product suncream = new Product("Suncream", 1700);
+        Promotion promotion = new QuantityForSetPrice(2, 3000);
+        catalog.addPromotionForProduct(suncream, promotion);
+        theCart.add(suncream).times(2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(30.00);
+        assertThat(receipt.numberOfItemsSold()).isEqualTo(2);
+
+    }
 
     //Next time round
-    //apply promotion per group
+    //apply promotion per group?
     //joda money
     //how did I get away with no hashcode, equals?
 

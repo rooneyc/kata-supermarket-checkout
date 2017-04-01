@@ -4,19 +4,19 @@ import net.serenitybdd.dojo.supermarket.model.Promotion;
 
 public class BuyAndGetSomeFree implements Promotion {
 
-    private int buy;
-    private int getFree;
+    private int quantityRequiredToBuy;
+    private int quantityGetFree;
 
-    public BuyAndGetSomeFree(int buy, int getFree) {
-        this.buy = buy + getFree;
-        this.getFree = getFree;
+    public BuyAndGetSomeFree(int quantityRequiredToBuy, int quantityGetFree) {
+        this.quantityRequiredToBuy = quantityRequiredToBuy + quantityGetFree;
+        this.quantityGetFree = quantityGetFree;
     }
 
     @Override
-    public double applyDiscount(double price, int quantityOfProduct) {
+    public double applyDiscount(double price, int quantityOfProductSoldSoFar) {
 
-        if (quantityOfProduct == buy) {
-            double discount = price * getFree;
+        if (quantityOfProductSoldSoFar == quantityRequiredToBuy) {
+            double discount = price * quantityGetFree;
             return price - discount;
         }
         return price;

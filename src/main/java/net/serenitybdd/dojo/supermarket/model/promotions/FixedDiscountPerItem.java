@@ -2,11 +2,11 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class FixedDiscount implements Promotion {
+public class FixedDiscountPerItem implements Promotion {
 
-    private int discountDiscountInCent = 0;
+    private final int discountDiscountInCent;
 
-    public FixedDiscount(int discountDiscountInCent) {
+    public FixedDiscountPerItem(int discountDiscountInCent) {
         this.discountDiscountInCent = discountDiscountInCent;
     }
 

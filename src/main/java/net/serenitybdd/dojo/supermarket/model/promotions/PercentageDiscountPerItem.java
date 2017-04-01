@@ -2,11 +2,11 @@ package net.serenitybdd.dojo.supermarket.model.promotions;
 
 import net.serenitybdd.dojo.supermarket.model.Promotion;
 
-public class PercentageDiscount implements Promotion{
+public class PercentageDiscountPerItem implements Promotion{
 
     private final double percentageDiscountInCent;
 
-    public PercentageDiscount(double percentageDiscountInCent) {
+    public PercentageDiscountPerItem(double percentageDiscountInCent) {
         this.percentageDiscountInCent = percentageDiscountInCent;
     }
 
