@@ -63,9 +63,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk", Money.parse("EUR 1.20")));
-        assertThat(receipt.itemsPurchased()).contains(new LineItem("Bread", Money.parse("EUR 2.40")));
-
+        assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20")));
+        assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40")));
 
     }
 }

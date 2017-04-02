@@ -15,4 +15,8 @@ public class Product {
     Money getPrice() {
         return price;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
