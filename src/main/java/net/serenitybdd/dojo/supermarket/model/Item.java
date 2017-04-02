@@ -2,13 +2,13 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public class Item {
 
-    private Barcode barCode;
+    private String code;
 
-    public Item(Barcode barCode) {
-        this.barCode = barCode;
+    public Item(String code) {
+        this.code = code;
     }
 
-    Barcode getBarCode() {
-        return barCode;
+    String getCode() {
+        return code;
     }
 }

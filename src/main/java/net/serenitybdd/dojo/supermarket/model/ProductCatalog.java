@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class ProductCatalog {
 
-    private Map<Barcode, Product> products = new HashMap<>();
+    private Map<String, Product> products = new HashMap<>();
 
-    Product getFromCode(Barcode barCode) {
-        return products.get(barCode);
+    Product getFromCode(String code) {
+        return products.get(code);
     }
 
-    public void add(Barcode barCode, Product product) {
-        products.put(barCode, product);
+    public void add(String code, Product product) {
+        products.put(code, product);
     }
 }

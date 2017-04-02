@@ -4,8 +4,7 @@ import net.serenitybdd.dojo.supermarket.model.*;
 import org.joda.money.Money;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
 
@@ -21,7 +20,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("EUR 0.00")));
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.00"));
+                //equalTo(Money.parse("EUR 0.00")));
 
     }
 
@@ -30,20 +30,43 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         ProductCatalog catalog = new ProductCatalog();
-        Teller teller = new Teller(catalog);
-        ShoppingCart theCart = new ShoppingCart();
-        Product product = new Product("Milk", Money.parse("EUR 1.20"));
-        Barcode barcode = new Barcode("0000000000001");
-        catalog.add(barcode, product);
+        catalog.add("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
 
-        Item item = new Item(barcode);
-        theCart.addItem(item);
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Item("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("EUR 1.20")));
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 1.20"));
+
+    }
+
+    @Test
+    public void receipt_should_list_all_items_purchased() throws Exception {
+
+        // GIVEN
+        ProductCatalog catalog = new ProductCatalog();
+        catalog.add("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.add("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Item("0000000000002"));
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk", Money.parse("EUR 1.20")));
+        assertThat(receipt.itemsPurchased()).contains(new LineItem("Bread", Money.parse("EUR 2.40")));
+
 
     }
 }
+

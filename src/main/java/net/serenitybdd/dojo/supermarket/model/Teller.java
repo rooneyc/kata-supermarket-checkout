@@ -10,7 +10,7 @@ public class Teller {
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
-        Product product = catalog.getFromCode(theCart.getItems().get(0).getBarCode());
+        Product product = catalog.getFromCode(theCart.getItems().get(0).getCode());
         Receipt receipt = new Receipt();
         receipt.setTotalPrice(product.getPrice());
         return receipt;

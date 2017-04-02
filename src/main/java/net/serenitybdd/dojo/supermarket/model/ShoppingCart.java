@@ -1,6 +1,5 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,7 @@ public class ShoppingCart {
 
     private final List<Item> items = new ArrayList<>();
 
-    public List<Item> getItems() {
+    List<Item> getItems() {
         return new ArrayList<>(items);
     }
 
@@ -22,16 +21,16 @@ public class ShoppingCart {
 
     public class ShoppingCartAdder {
         private final ShoppingCart shoppingCart;
-        private final Item product;
+        private final Item item;
 
         private ShoppingCartAdder(ShoppingCart shoppingCart, Item item) {
             this.shoppingCart = shoppingCart;
-            this.product = item;
+            this.item = item;
         }
 
         public void times(int quantity) {
             for(int count = 0; count < quantity; count++) {
-                shoppingCart.addItem(product);
+                shoppingCart.addItem(item);
             }
         }
     }
