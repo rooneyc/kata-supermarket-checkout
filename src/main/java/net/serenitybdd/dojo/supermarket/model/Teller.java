@@ -2,9 +2,9 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public class Teller {
 
-    private final SupermarketCatalog catalog;
+    private final Catalog catalog;
 
-    public Teller(SupermarketCatalog catalog) {
+    public Teller(Catalog catalog) {
 
         this.catalog = catalog;
     }

@@ -1,6 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import org.joda.money.Money;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,17 +11,17 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     @Test
     public void an_empty_shopping_cart_should_cost_nothing() {
+
         // GIVEN
-        SupermarketCatalog catalog = new DummyCatalog();
+        Catalog catalog = new Catalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
 
         // WHEN
-
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice(), equalTo(0.00));
+        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("USD 0.00")));
 
     }
 }

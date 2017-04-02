@@ -1,31 +1,32 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
 
-    private final List<Product> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
-    public List<Product> getItems() {
+    public List<Item> getItems() {
         return new ArrayList<>(items);
     }
 
-    public void addItem(Product product) {
-        items.add(product);
+    public void addItem(Item item) {
+        items.add(item);
     }
 
-    public ShoppingCartAdder add(Product product) {
-        return new ShoppingCartAdder(this, product);
+    public ShoppingCartAdder add(Item item) {
+        return new ShoppingCartAdder(this, item);
     }
 
     public class ShoppingCartAdder {
         private final ShoppingCart shoppingCart;
-        private final Product product;
+        private final Item product;
 
-        public ShoppingCartAdder(ShoppingCart shoppingCart, Product product) {
+        private ShoppingCartAdder(ShoppingCart shoppingCart, Item item) {
             this.shoppingCart = shoppingCart;
-            this.product = product;
+            this.product = item;
         }
 
         public void times(int quantity) {
