@@ -287,9 +287,19 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     //Next time round
-    //apply promotion per group?
     //joda money
+
     //how did I get away with no hashcode, equals?
+    //because in the car i have x references to the same product object
+
+    //barcode (only catalogue should hold products)
+    //receipt line item (receipt should be made up of lines not products)
+
+    //Quantity for set price
+
+    //Group multiples of same product?
+    //https://normalness.com/wp-content/uploads//2015/09/Woolworths-Receipt.jpg
+    //https://homeschoolingwithguinever.files.wordpress.com/2009/11/meijer-receipt.jpg?w=455
 
     //should not scan items not in catalogue (i.e. bought in another shop)
 
@@ -298,7 +308,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //coupons
     //http://2.bp.blogspot.com/-ipLVms6ubJI/TYFK72YzSLI/AAAAAAAABs4/7xvT5WIAAoM/s1600/publix%2Breceipt%2B3-15-11.JPG
 
-    //Buy item X and get  % discount on item Y
+    //Buy item X and get % discount on item Y
 
     //Save X amount when you spend Y amount or more - Voucher
 
@@ -311,6 +321,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //offer combination rules i.e. this offer cannot be combined with an other offer e.g. coupons
 
     //if product qualifies for two deals, most beneficial deal should apply
+
+    //What should happen if buying product individually is cheaper than multiple for set price deal?
+    //Should this deal be allowed?
 
     //Free delivery for all orders over X amount
 
@@ -345,23 +358,18 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //https://onepoundperday.files.wordpress.com/2015/05/onepoundperday_receipt_2015.png
     //or + and -?
 
-
     //Show barcodes (I think its confusing but legal?
     //http://images2.wikia.nocookie.net/__cb20111106201149/groceryreceipts/images/2/22/33612.png
 
     //Show VAT codes?
     //http://3.bp.blogspot.com/_vcw3KJyvgv0/TGxT8dhvYBI/AAAAAAAAARY/VyI93KTb9_E/s1600/IMG.jpg
 
-    //Group multiples of same product?
-    //https://normalness.com/wp-content/uploads//2015/09/Woolworths-Receipt.jpg
-    //https://homeschoolingwithguinever.files.wordpress.com/2009/11/meijer-receipt.jpg?w=455
-
     //Nutritional Data
     //https://static.dezeen.com/uploads/2016/02/solution-obesity-hayden-peek-packaging-receipt-design_dezeen_1568_0.jpg
 
     //points for vouchers
 
-    //X for Y cheapest free e.g. veg 3 for 2 cheapest free
+    //X for Y cheapest free e.g. veg 3 for 2, cheapest one free
 
     //Thoughts
     //Buy x get Y free = X+Y for the price of X
@@ -372,5 +380,11 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     //http://supermarketjustice.com/avanza-receipt.jpg
     //https://fizzleblog.files.wordpress.com/2010/12/grocery-receipt-2.jpg?w=756
+
+    //Other Discount ideas
+    //http://www.thatsoftwareguy.com/zencart_discounting.html
+    //http://www.thatsoftwareguy.com/blog/2012/10/07/why-are-bogo-discounts-superior-to-percent-off-sales/
+    //
+
 }
 
