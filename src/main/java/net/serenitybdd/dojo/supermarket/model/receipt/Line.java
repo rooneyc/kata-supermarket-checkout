@@ -1,4 +1,4 @@
-package net.serenitybdd.dojo.supermarket.model;
+package net.serenitybdd.dojo.supermarket.model.receipt;
 
 import org.joda.money.Money;
 
@@ -6,10 +6,12 @@ public class Line {
 
     private String description;
     private Money price;
+    private TransactionType type;
 
-    public Line(String description, Money price) {
+    public Line(String description, Money price, TransactionType type) {
         this.description = description;
         this.price = price;
+        this.type = type;
     }
 
     @Override
@@ -20,13 +22,15 @@ public class Line {
         Line line = (Line) o;
 
         if (description != null ? !description.equals(line.description) : line.description != null) return false;
-        return price != null ? price.equals(line.price) : line.price == null;
+        if (price != null ? !price.equals(line.price) : line.price != null) return false;
+        return type == line.type;
     }
 
     @Override
     public int hashCode() {
         int result = description != null ? description.hashCode() : 0;
         result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

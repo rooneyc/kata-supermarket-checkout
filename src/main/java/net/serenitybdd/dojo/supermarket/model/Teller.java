@@ -2,9 +2,9 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public class Teller {
 
-    private final ProductCatalog catalog;
+    private final Catalog catalog;
 
-    public Teller(ProductCatalog catalog) {
+    public Teller(Catalog catalog) {
 
         this.catalog = catalog;
     }
@@ -14,8 +14,10 @@ public class Teller {
         Receipt receipt = new Receipt();
 
         for (Item item : theCart.getItems()) {
-            Product product = catalog.getFromCode(item.getCode());
+            Product product = catalog.getProductFromCode(item.getCode());
             receipt.add(product);
+            Promotion promotion = catalog.getPromotionFromCode(item.getCode());
+            receipt.applyPromotionToProduct(promotion, product);
         }
 
         return receipt;

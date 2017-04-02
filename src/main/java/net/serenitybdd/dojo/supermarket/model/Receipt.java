@@ -1,5 +1,7 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import net.serenitybdd.dojo.supermarket.model.receipt.Line;
+import net.serenitybdd.dojo.supermarket.model.receipt.TransactionType;
 import org.joda.money.Money;
 
 import java.util.ArrayList;
@@ -19,7 +21,15 @@ public class Receipt {
     }
 
     public void add(Product product) {
-        lineItems.add(new Line (product.getDescription(), product.getPrice()));
+        lineItems.add(new Line (product.getDescription(), product.getPrice(), TransactionType.DEBIT));
         totalPrice = totalPrice.plus(product.getPrice());
+    }
+
+    public void applyPromotionToProduct(Promotion promotion, Product product) {
+            Money discount = promotion.calculateDiscount(product.getPrice());
+            if (discount.isPositive()) {
+                lineItems.add(new Line(product.getDescription(), product.getPrice(), TransactionType.CREDIT));
+                totalPrice = totalPrice.minus(discount);
+            }
     }
 }
