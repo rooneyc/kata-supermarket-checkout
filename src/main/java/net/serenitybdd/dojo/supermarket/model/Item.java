@@ -1,7 +1,14 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-class Item {
+public class Item {
 
-    int barCode;
+    private Barcode barCode;
 
+    public Item(Barcode barCode) {
+        this.barCode = barCode;
+    }
+
+    Barcode getBarCode() {
+        return barCode;
+    }
 }

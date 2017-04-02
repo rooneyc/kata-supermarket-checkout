@@ -2,14 +2,17 @@ package net.serenitybdd.dojo.supermarket.model;
 
 public class Teller {
 
-    private final Catalog catalog;
+    private final ProductCatalog catalog;
 
-    public Teller(Catalog catalog) {
+    public Teller(ProductCatalog catalog) {
 
         this.catalog = catalog;
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
-        return new Receipt();
+        Product product = catalog.getFromCode(theCart.getItems().get(0).getBarCode());
+        Receipt receipt = new Receipt();
+        receipt.setTotalPrice(product.getPrice());
+        return receipt;
     }
 }

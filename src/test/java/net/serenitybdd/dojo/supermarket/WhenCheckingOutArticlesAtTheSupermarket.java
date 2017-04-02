@@ -13,7 +13,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void an_empty_shopping_cart_should_cost_nothing() {
 
         // GIVEN
-        Catalog catalog = new Catalog();
+        ProductCatalog catalog = new ProductCatalog();
         Teller teller = new Teller(catalog);
         ShoppingCart theCart = new ShoppingCart();
 
@@ -21,7 +21,29 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("USD 0.00")));
+        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("EUR 0.00")));
+
+    }
+
+    @Test
+    public void receipt_should_calculate_total_price_when_one_item_in_cart() throws Exception {
+
+        // GIVEN
+        ProductCatalog catalog = new ProductCatalog();
+        Teller teller = new Teller(catalog);
+        ShoppingCart theCart = new ShoppingCart();
+        Product product = new Product("Milk", Money.parse("EUR 1.20"));
+        Barcode barcode = new Barcode("0000000000001");
+        catalog.add(barcode, product);
+
+        Item item = new Item(barcode);
+        theCart.addItem(item);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice(), equalTo(Money.parse("EUR 1.20")));
 
     }
 }
