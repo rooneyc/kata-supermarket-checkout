@@ -186,8 +186,15 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    //TODO Rename LineItem to LineItem
-    //TODO Two products of the same type should result in line item with quantity of 2
+    @Test
+    public void if_scan_two_items_of_same_type_then_line_should_have_quantity_of_two() throws Exception {
+
+
+
+    }
+
+
+        //TODO Two products of the same type should result in line item with quantity of 2
     //TODO LineItem Items need a Header LineItem
 
 
