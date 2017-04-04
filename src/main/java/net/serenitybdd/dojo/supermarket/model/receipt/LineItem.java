@@ -2,18 +2,15 @@ package net.serenitybdd.dojo.supermarket.model.receipt;
 
 import org.joda.money.Money;
 
-public class Line {
+public class LineItem {
 
     private String description;
     private int quantity = 1;
     private Money price;
-    //private TransactionType type;
 
-    //public Line(String description, Money price, TransactionType type) {
-    public Line(String description, Money price) {
+    public LineItem(String description, Money price) {
         this.description = description;
         this.price = price;
-        //this.type = type;
     }
 
     @Override
@@ -21,10 +18,10 @@ public class Line {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Line line = (Line) o;
+        LineItem lineItem = (LineItem) o;
 
-        if (description != null ? !description.equals(line.description) : line.description != null) return false;
-        return price != null ? price.equals(line.price) : line.price == null;
+        if (description != null ? !description.equals(lineItem.description) : lineItem.description != null) return false;
+        return price != null ? price.equals(lineItem.price) : lineItem.price == null;
     }
 
     @Override

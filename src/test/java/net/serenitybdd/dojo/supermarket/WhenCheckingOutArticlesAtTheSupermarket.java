@@ -4,11 +4,9 @@ import net.serenitybdd.dojo.supermarket.model.*;
 import net.serenitybdd.dojo.supermarket.model.promotion.FixedPriceDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.promotion.PercentageDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.Item;
-import net.serenitybdd.dojo.supermarket.model.receipt.Line;
+import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
-import net.serenitybdd.dojo.supermarket.model.receipt.TransactionType;
 import org.joda.money.Money;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,10 +68,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        //assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20"), TransactionType.DEBIT));
-        //assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40"), TransactionType.DEBIT));
-        assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20")));
-        assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40")));
+        assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk", Money.parse("EUR 1.20")));
+        assertThat(receipt.itemsPurchased()).contains(new LineItem("Bread", Money.parse("EUR 2.40")));
 
     }
 
@@ -145,10 +141,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void should_be_able_print_receipt_line_item() throws Exception {
 
         // GIVEN
-        Line line = new Line("Milk",  Money.parse("EUR 1.20"));
+        LineItem lineItem = new LineItem("Milk",  Money.parse("EUR 1.20"));
 
         // WHEN
-        String lineString = line.toString();
+        String lineString = lineItem.toString();
 
         // THEN
         assertThat(lineString).isEqualTo("Milk 1 EUR 1.20");
@@ -172,7 +168,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.itemsPurchased()).contains(new Line("Milk Promotion", Money.parse("EUR -0.30")));
+        assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk Promotion", Money.parse("EUR -0.30")));
 
     }
 
@@ -180,19 +176,19 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_should_display_quantity_of_product_type_purchased() throws Exception {
 
         // GIVEN
-        Line line = new Line("Apple", Money.parse("EUR 0.30"));
+        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
 
         // WHEN
-        String lineString = line.toString();
+        String lineString = lineItem.toString();
 
         // THEN
         assertThat(lineString).isEqualTo("Apple 1 EUR 0.30");
 
     }
 
-    //TODO Rename Line to LineItem
+    //TODO Rename LineItem to LineItem
     //TODO Two products of the same type should result in line item with quantity of 2
-    //TODO Line Items need a Header Line
+    //TODO LineItem Items need a Header LineItem
 
 
 }
