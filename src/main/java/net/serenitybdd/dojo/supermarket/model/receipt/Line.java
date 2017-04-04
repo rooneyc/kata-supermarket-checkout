@@ -6,12 +6,13 @@ public class Line {
 
     private String description;
     private Money price;
-    private TransactionType type;
+    //private TransactionType type;
 
-    public Line(String description, Money price, TransactionType type) {
+    //public Line(String description, Money price, TransactionType type) {
+    public Line(String description, Money price) {
         this.description = description;
         this.price = price;
-        this.type = type;
+        //this.type = type;
     }
 
     @Override
@@ -22,15 +23,18 @@ public class Line {
         Line line = (Line) o;
 
         if (description != null ? !description.equals(line.description) : line.description != null) return false;
-        if (price != null ? !price.equals(line.price) : line.price != null) return false;
-        return type == line.type;
+        return price != null ? price.equals(line.price) : line.price == null;
     }
 
     @Override
     public int hashCode() {
         int result = description != null ? description.hashCode() : 0;
         result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return description + " " + price;
     }
 }

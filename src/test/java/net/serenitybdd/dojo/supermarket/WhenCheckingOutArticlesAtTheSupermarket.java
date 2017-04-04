@@ -8,6 +8,7 @@ import net.serenitybdd.dojo.supermarket.model.receipt.Line;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
 import net.serenitybdd.dojo.supermarket.model.receipt.TransactionType;
 import org.joda.money.Money;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,8 +70,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20"), TransactionType.DEBIT));
-        assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40"), TransactionType.DEBIT));
+        //assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20"), TransactionType.DEBIT));
+        //assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40"), TransactionType.DEBIT));
+        assertThat(receipt.itemsPurchased()).contains(new Line("Milk", Money.parse("EUR 1.20")));
+        assertThat(receipt.itemsPurchased()).contains(new Line("Bread", Money.parse("EUR 2.40")));
 
     }
 
@@ -102,7 +105,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
+        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR -0.30")));
 
         Teller teller = new Teller(catalog);
 
@@ -123,7 +126,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new PercentageDiscountPerItem(0.30));
+        catalog.addPromotion("0000000000001", new PercentageDiscountPerItem(-0.30));
 
         Teller teller = new Teller(catalog);
 
@@ -138,6 +141,52 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
+    @Test
+    public void should_be_able_print_receipt_line_item() throws Exception {
+
+        // GIVEN
+        Line line = new Line("Milk",  Money.parse("EUR 1.20"));
+
+        // WHEN
+        String lineString = line.toString();
+
+        // THEN
+        assertThat(lineString).isEqualTo("Milk EUR 1.20");
+
+    }
+
+    @Test @Ignore
+    public void receipt_should_show_promotion_line_item() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Item("0000000000001"));
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.itemsPurchased()).contains(new Line("Milk Promotion", Money.parse("EUR -0.30")));
+
+    }
+
+    @Test
+    public void can_we_have_negative_money() throws Exception {
+        Money negativeMoney = Money.parse("EUR 0.00").minus(Money.parse("EUR 0.01"));
+        System.out.println(negativeMoney);
+    }
+
+    @Test
+    public void can_we_create_negative_money() throws Exception {
+        Money negativeMoney = Money.parse("EUR -0.01");
+        System.out.println(negativeMoney);
+    }
 
 
 

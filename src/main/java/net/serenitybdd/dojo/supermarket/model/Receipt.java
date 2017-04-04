@@ -21,15 +21,16 @@ public class Receipt {
     }
 
     public void add(Product product) {
-        lineItems.add(new Line (product.getDescription(), product.getPrice(), TransactionType.DEBIT));
+//        lineItems.add(new Line (product.getDescription(), product.getPrice(), TransactionType.DEBIT));
+        lineItems.add(new Line (product.getDescription(), product.getPrice()));
         totalPrice = totalPrice.plus(product.getPrice());
     }
 
     public void applyPromotionToProduct(Promotion promotion, Product product) {
             Money discount = promotion.calculateDiscount(product.getPrice());
-            if (discount.isPositive()) {
-                lineItems.add(new Line(product.getDescription(), product.getPrice(), TransactionType.CREDIT));
-                totalPrice = totalPrice.minus(discount);
-            }
+//            lineItems.add(new Line(product.getDescription() + " Promotion", discount, TransactionType.CREDIT));
+            lineItems.add(new Line(product.getDescription() + " Promotion", discount));
+            totalPrice = totalPrice.plus(discount);
     }
+
 }
