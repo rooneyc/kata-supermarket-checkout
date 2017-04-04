@@ -5,6 +5,7 @@ import org.joda.money.Money;
 public class Line {
 
     private String description;
+    private int quantity = 1;
     private Money price;
     //private TransactionType type;
 
@@ -35,6 +36,6 @@ public class Line {
 
     @Override
     public String toString() {
-        return description + " " + price;
+        return description + " " + quantity + " " + price;
     }
 }

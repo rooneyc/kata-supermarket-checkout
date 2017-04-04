@@ -15,6 +15,6 @@ public class PercentageDiscountPerItem implements Promotion {
 
     @Override
     public Money calculateDiscount(Money price) {
-        return price.multipliedBy(discount, RoundingMode.CEILING);
+        return price.multipliedBy(discount, RoundingMode.CEILING).negated();
     }
 }

@@ -105,7 +105,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR -0.30")));
+        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
 
         Teller teller = new Teller(catalog);
 
@@ -126,7 +126,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new PercentageDiscountPerItem(-0.30));
+        catalog.addPromotion("0000000000001", new PercentageDiscountPerItem(0.30));
 
         Teller teller = new Teller(catalog);
 
@@ -151,11 +151,11 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         String lineString = line.toString();
 
         // THEN
-        assertThat(lineString).isEqualTo("Milk EUR 1.20");
+        assertThat(lineString).isEqualTo("Milk 1 EUR 1.20");
 
     }
 
-    @Test @Ignore
+    @Test
     public void receipt_should_show_promotion_line_item() throws Exception {
 
         // GIVEN
@@ -177,17 +177,22 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void can_we_have_negative_money() throws Exception {
-        Money negativeMoney = Money.parse("EUR 0.00").minus(Money.parse("EUR 0.01"));
-        System.out.println(negativeMoney);
+    public void a_line_should_display_quantity_of_product_type_purchased() throws Exception {
+
+        // GIVEN
+        Line line = new Line("Apple", Money.parse("EUR 0.30"));
+
+        // WHEN
+        String lineString = line.toString();
+
+        // THEN
+        assertThat(lineString).isEqualTo("Apple 1 EUR 0.30");
+
     }
 
-    @Test
-    public void can_we_create_negative_money() throws Exception {
-        Money negativeMoney = Money.parse("EUR -0.01");
-        System.out.println(negativeMoney);
-    }
-
+    //TODO Rename Line to LineItem
+    //TODO Two products of the same type should result in line item with quantity of 2
+    //TODO Line Items need a Header Line
 
 
 }

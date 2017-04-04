@@ -13,6 +13,6 @@ public class FixedPriceDiscountPerItem implements Promotion {
 
     @Override
     public Money calculateDiscount(Money price) {
-        return discount;
+        return discount.negated();
     }
 }
