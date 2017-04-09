@@ -5,6 +5,7 @@ import org.joda.money.Money;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class Receipt {
 
@@ -19,15 +20,24 @@ public class Receipt {
         return lineItems;
     }
 
-    public void add(Product product) {
-        lineItems.add(new LineItem(product.getDescription(), product.getPrice()));
+    void add(Product product) {
+        LineItem lineitem = new LineItem(product.getDescription(), product.getPrice());
+        if (lineItems.contains(lineitem)) {
+            lineItems.iterator().next().incrementQuantity();
+        } else {
+            lineItems.add(lineitem);
+        }
         totalPrice = totalPrice.plus(product.getPrice());
     }
 
-    public void applyPromotionToProduct(Promotion promotion, Product product) {
-            Money discount = promotion.calculateDiscount(product.getPrice());
-            lineItems.add(new LineItem(product.getDescription() + " Promotion", discount));
-            totalPrice = totalPrice.plus(discount);
+    void applyPromotionToProduct(Promotion promotion, Product product) {
+        int quantityScanned = lineItems.iterator().next().getQuantity();
+        Money discount = promotion.calculateDiscount(quantityScanned, product.getPrice());
+            if (!discount.isZero()) {
+                lineItems.add(new LineItem(product.getDescription() + " Promotion", discount));
+                totalPrice = totalPrice.plus(discount);
+            }
+
     }
 
 }

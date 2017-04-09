@@ -4,6 +4,6 @@ import org.joda.money.Money;
 
 public interface Promotion {
 
-    Money calculateDiscount(Money price);
+    Money calculateDiscount(int quantityScanned, Money price);
 
 }

@@ -1,6 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import net.serenitybdd.dojo.supermarket.model.promotion.BuyToGetFree;
 import net.serenitybdd.dojo.supermarket.model.promotion.FixedPriceDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.promotion.PercentageDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.Item;
@@ -201,18 +202,42 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         theCart.addItem(new Item("0000000000001"));
         theCart.addItem(new Item("0000000000001"));
 
-        //LineItem lineItem = new LineItem("Milk", Money.parse("EUR 2.40"));
-
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
         Collection<LineItem> itemsPurchased = receipt.itemsPurchased();
         LineItem lineItem = itemsPurchased.iterator().next();
-        assertThat(lineItem.toString()).isEqualTo("Milk 2 EUR 2.40");
+        String quantity = lineItem.toString().split("\\s")[1];
+        assertThat(quantity).isEqualTo("2");
 
     }
 
+    @Test
+    public void receipt_should_show_buy_two_get_one_free_discounts() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Item("0000000000001"));
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.40"));
+
+    }
+
+
+    //TODO Should be able to print receipt
     //TODO LineItem Items need a Header LineItem
 
 

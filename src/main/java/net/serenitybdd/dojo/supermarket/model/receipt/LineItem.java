@@ -13,6 +13,14 @@ public class LineItem {
         this.price = price;
     }
 
+    public void incrementQuantity() {
+        quantity += 1;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,4 +43,5 @@ public class LineItem {
     public String toString() {
         return description + " " + quantity + " " + price;
     }
+
 }

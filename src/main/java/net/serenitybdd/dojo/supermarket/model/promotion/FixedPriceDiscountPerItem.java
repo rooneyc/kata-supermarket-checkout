@@ -12,7 +12,7 @@ public class FixedPriceDiscountPerItem implements Promotion {
     }
 
     @Override
-    public Money calculateDiscount(Money price) {
+    public Money calculateDiscount(int quantityScanned, Money price) {
         return discount.negated();
     }
 }
