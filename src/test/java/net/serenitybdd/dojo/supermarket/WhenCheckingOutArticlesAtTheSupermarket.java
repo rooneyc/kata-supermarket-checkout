@@ -145,6 +145,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         String lineString = lineItem.toString();
 
         // THEN
+        System.out.println(lineString);
         assertThat(lineString).isEqualTo("Milk 1 EUR 1.20");
     }
 
@@ -180,6 +181,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         String lineString = lineItem.toString();
 
         // THEN
+        System.out.println(lineString);
         assertThat(lineString).isEqualTo("Apple 1 EUR 0.30");
     }
 
@@ -355,12 +357,50 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 7.44"));
     }
 
+    @Test
+    public void receipt_should_show_number_of_items() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(2);
+        theCart.addItem(new Article("0000000000002"));
+        theCart.add(new Article("0000000000003")).times(11);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.print()).contains("14");
+    }
+
+    @Test
+    public void a_line_item_should_display_total_price_for_quantity() throws Exception {
+
+        // GIVEN
+        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
+        lineItem.incrementQuantity();
+
+        // WHEN
+        String lineString = lineItem.toString();
+
+        // THEN
+        System.out.println(lineString);
+        assertThat(lineString).isEqualTo("Apple 2 EUR 0.60");
+    }
+
+
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
     //TODO Line Items should should price total price per line
-    //TODO Should be able locate LineItem by Product?
-    //TODO Receipt should print number of items purchased
-    //TODO LineItem Items need a Header LineItem
+    //TODO Receipts need a Header LineItem
 
 }
 

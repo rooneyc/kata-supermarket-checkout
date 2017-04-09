@@ -48,13 +48,18 @@ public class Receipt {
     }
 
     public String print() {
+        int numberOfItems = 0;
         StringBuilder receiptBuilder = new StringBuilder();
         for (LineItem item : lineItems) {
             receiptBuilder.append(item.toString());
             receiptBuilder.append(System.getProperty("line.separator"));
+            numberOfItems += item.getQuantity();
         }
         receiptBuilder.append("Total ");
         receiptBuilder.append(totalPrice);
+        receiptBuilder.append(System.getProperty("line.separator"));
+        receiptBuilder.append("Number of Items ");
+        receiptBuilder.append(numberOfItems);
         return receiptBuilder.toString();
     }
 }
