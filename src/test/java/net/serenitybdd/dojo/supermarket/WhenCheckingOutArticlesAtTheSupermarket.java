@@ -210,10 +210,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(receipt.print());
-        Collection<LineItem> itemsPurchased = receipt.itemsPurchased();
-        LineItem lineItem = itemsPurchased.iterator().next();
-        String quantity = String.valueOf(lineItem.getQuantity());
-        assertThat(quantity).isEqualTo("2");
+        assertThat(receipt.print()).contains("Total EUR 2.40");
 
     }
 
@@ -376,7 +373,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
-    //TODO Should be able to apply two different typw of quantity discounts
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
     //TODO Line Items should should price total price per line
