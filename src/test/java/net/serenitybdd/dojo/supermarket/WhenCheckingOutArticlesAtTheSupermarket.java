@@ -154,7 +154,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(lineString).isEqualTo("Milk 1 EUR 1.20");
-
     }
 
     @Test
@@ -175,8 +174,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(receipt.print());
-        assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk Promotion", Money.parse("EUR -0.30")));
-
+        assertThat(receipt.print()).contains("Milk Promotion");
+        assertThat(receipt.print()).contains("EUR -0.30");
     }
 
     @Test
@@ -381,4 +380,5 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //TODO LineItem Items need a Header LineItem
 
 }
+
 
