@@ -17,10 +17,6 @@ public class Receipt {
         return totalPrice;
     }
 
-    public Collection<LineItem> itemsPurchased() {
-        return lineItems;
-    }
-
     void add(Product product) {
         LineItem lineitem = new LineItem(product.getDescription(), product.getPrice());
 
@@ -32,6 +28,15 @@ public class Receipt {
         totalPrice = totalPrice.plus(product.getPrice());
     }
 
+    private CanGetAndIncrementQuantity getLineItemForProduct(Product product) {
+        for (LineItem item : lineItems) {
+            if (item.equals(new LineItem(product.getDescription(), product.getPrice()))) {
+                return item;
+            }
+        }
+        return new NullLineItem();
+    }
+
     void applyPromotionToProduct(Promotion promotion, Product product) {
         int quantityScanned = getLineItemForProduct(product).getQuantity();
         Money discount = promotion.calculateDiscount(quantityScanned, product.getPrice());
@@ -40,15 +45,6 @@ public class Receipt {
                 totalPrice = totalPrice.plus(discount);
             }
 
-    }
-
-    private CanGetAndIncrementQuantity getLineItemForProduct(Product product) {
-        for (LineItem item : lineItems) {
-            if (item.equals(new LineItem(product.getDescription(), product.getPrice()))) {
-                return item;
-            }
-        }
-        return new NullLineItem();
     }
 
     public String print() {

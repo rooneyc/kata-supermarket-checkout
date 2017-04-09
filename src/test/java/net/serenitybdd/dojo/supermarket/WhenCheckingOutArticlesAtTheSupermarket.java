@@ -8,8 +8,6 @@ import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
 import org.junit.Test;
 
-import java.util.Collection;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
@@ -28,7 +26,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.00"));
-
     }
 
     @Test
@@ -49,7 +46,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 1.20"));
-
     }
 
     @Test
@@ -95,7 +91,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 3.60"));
-
     }
 
     @Test
@@ -117,7 +112,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.90"));
-
     }
 
     @Test
@@ -139,7 +133,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.84"));
-
     }
 
     @Test
@@ -188,7 +181,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         assertThat(lineString).isEqualTo("Apple 1 EUR 0.30");
-
     }
 
     @Test
@@ -209,7 +201,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.print()).contains("Total EUR 2.40");
-
     }
 
     @Test
@@ -231,7 +222,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.40"));
-
     }
 
     @Test
@@ -253,7 +243,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.print()).contains("Total EUR 2.40");
-
     }
 
     @Test
@@ -275,7 +264,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 4.80"));
-
     }
 
     @Test
@@ -298,7 +286,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.64"));
-
     }
 
     @Test
@@ -320,7 +307,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.00"));
-
     }
 
     @Test
@@ -343,7 +329,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.print()).contains("Bread 2");
-
     }
 
     @Test
@@ -368,7 +353,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 7.44"));
-
     }
 
     //TODO If Buy less than required should not get the promotion
