@@ -1,6 +1,6 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-import net.serenitybdd.dojo.supermarket.model.receipt.CanIncrementQuantity;
+import net.serenitybdd.dojo.supermarket.model.receipt.CanGetAndIncrementQuantity;
 import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
 import net.serenitybdd.dojo.supermarket.model.receipt.NullLineItem;
 import org.joda.money.Money;
@@ -32,23 +32,23 @@ public class Receipt {
         totalPrice = totalPrice.plus(product.getPrice());
     }
 
-    private CanIncrementQuantity getLineItemForProduct(Product product) {
-        for (LineItem item : lineItems) {
-            if (item.equals(new LineItem(product.getDescription(), product.getPrice()))) {
-                return item;
-            }
-        }
-        return new NullLineItem();
-    }
-
     void applyPromotionToProduct(Promotion promotion, Product product) {
-        int quantityScanned = lineItems.iterator().next().getQuantity();
+        int quantityScanned = getLineItemForProduct(product).getQuantity();
         Money discount = promotion.calculateDiscount(quantityScanned, product.getPrice());
             if (!discount.isZero()) {
                 lineItems.add(new LineItem(product.getDescription() + " Promotion", discount));
                 totalPrice = totalPrice.plus(discount);
             }
 
+    }
+
+    private CanGetAndIncrementQuantity getLineItemForProduct(Product product) {
+        for (LineItem item : lineItems) {
+            if (item.equals(new LineItem(product.getDescription(), product.getPrice()))) {
+                return item;
+            }
+        }
+        return new NullLineItem();
     }
 
     public String print() {

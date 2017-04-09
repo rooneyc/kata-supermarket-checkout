@@ -1,7 +1,9 @@
 package net.serenitybdd.dojo.supermarket.model.receipt;
 
-public interface CanIncrementQuantity {
+public interface CanGetAndIncrementQuantity {
 
     void incrementQuantity();
+
+    int getQuantity();
 
 }

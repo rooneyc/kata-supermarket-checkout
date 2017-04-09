@@ -2,7 +2,7 @@ package net.serenitybdd.dojo.supermarket.model.receipt;
 
 import org.joda.money.Money;
 
-public class LineItem implements CanIncrementQuantity {
+public class LineItem implements CanGetAndIncrementQuantity {
 
     private String description;
     private int quantity = 1;
