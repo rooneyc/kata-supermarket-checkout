@@ -3,7 +3,7 @@ package net.serenitybdd.dojo.supermarket;
 import net.serenitybdd.dojo.supermarket.model.*;
 import net.serenitybdd.dojo.supermarket.model.promotion.*;
 import net.serenitybdd.dojo.supermarket.model.Article;
-import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
+import net.serenitybdd.dojo.supermarket.model.receipt.ProductLineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
 import org.junit.Test;
@@ -139,7 +139,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void should_be_able_print_receipt_line_item() throws Exception {
 
         // GIVEN
-        LineItem lineItem = new LineItem("Milk",  Money.parse("EUR 1.20"));
+        ProductLineItem lineItem = new ProductLineItem("Milk",  Money.parse("EUR 1.20"));
 
         // WHEN
         String lineString = lineItem.toString();
@@ -175,7 +175,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_quantity_of_product_type_purchased() throws Exception {
 
         // GIVEN
-        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
 
         // WHEN
         String lineString = lineItem.toString();
@@ -385,7 +385,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_total_price_for_quantity() throws Exception {
 
         // GIVEN
-        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
         lineItem.incrementQuantity();
 
         // WHEN
@@ -400,7 +400,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_unit_price_when_quantity_greater_than_one() throws Exception {
 
         // GIVEN
-        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
         lineItem.incrementQuantity();
 
         // WHEN
@@ -411,11 +411,32 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(lineString).contains("@EUR 0.30");
     }
 
+    @Test
+    public void receipt_should_show_correct_number_of_items_when_promotion() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.print()).contains("Items 2");
+    }
+
     //TODO Promotion line item should have promotion details
     //TODO LineItem should have fixed spacing
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
-    //TODO Receipts need a Header LineItem
+    //TODO Receipts need a Header ProductLineItem
 
 }
 
