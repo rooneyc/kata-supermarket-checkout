@@ -5,7 +5,6 @@ import org.joda.money.Money;
 public class PromotionLineItem implements LineItem {
 
     private String description;
-    private int quantity = 0;
     private Money discount;
 
     public PromotionLineItem(String description, Money discount) {
@@ -14,13 +13,11 @@ public class PromotionLineItem implements LineItem {
     }
 
     @Override
-    public void incrementQuantity() {
-        quantity += 1;
-    }
+    public void incrementQuantity() {}
 
     @Override
     public int getQuantity() {
-        return quantity;
+        return 0;
     }
 
     @Override
@@ -45,4 +42,5 @@ public class PromotionLineItem implements LineItem {
     public String toString() {
         return description + " " + "Promotion" + " " + discount;
     }
+
 }

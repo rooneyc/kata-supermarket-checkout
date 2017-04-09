@@ -460,6 +460,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
 
+
+
     //TODO Promotion line item should have promotion details
     //TODO LineItem should have fixed spacing
     //TODO Receipts need a Header ProductLineItem
