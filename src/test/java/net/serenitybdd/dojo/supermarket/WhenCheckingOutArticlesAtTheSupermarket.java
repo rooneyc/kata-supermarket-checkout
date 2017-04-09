@@ -208,7 +208,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         Collection<LineItem> itemsPurchased = receipt.itemsPurchased();
         LineItem lineItem = itemsPurchased.iterator().next();
-        String quantity = lineItem.toString().split("\\s")[1];
+        String quantity = String.valueOf(lineItem.getQuantity());
         assertThat(quantity).isEqualTo("2");
 
     }
