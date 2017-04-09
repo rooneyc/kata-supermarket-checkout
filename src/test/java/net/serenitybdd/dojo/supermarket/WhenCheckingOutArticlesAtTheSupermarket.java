@@ -432,12 +432,33 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.print()).contains("Items 2");
     }
 
-    //TODO Promotion line item should have promotion details
-    //TODO LineItem should have fixed spacing
+    @Test
+    public void should_only_get_quantity_for_percentage_discount_once_if_buy_more_than_required() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000003")).times(10+2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.64"));
+    }
+
+
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
+    //TODO Promotion line item should have promotion details
+    //TODO LineItem should have fixed spacing
     //TODO Receipts need a Header ProductLineItem
-
 }
 
 
