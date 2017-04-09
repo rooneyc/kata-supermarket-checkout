@@ -1,6 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import net.serenitybdd.dojo.supermarket.model.promotion.BuyMoreThanToGetPercentageDiscount;
 import net.serenitybdd.dojo.supermarket.model.promotion.BuyToGetFree;
 import net.serenitybdd.dojo.supermarket.model.promotion.FixedPriceDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.promotion.PercentageDiscountPerItem;
@@ -28,8 +29,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.00"));
-                //equalTo(Money.parse("EUR 0.00")));
 
     }
 
@@ -49,6 +50,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 1.20"));
 
     }
@@ -71,6 +73,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk", Money.parse("EUR 1.20")));
         assertThat(receipt.itemsPurchased()).contains(new LineItem("Bread", Money.parse("EUR 2.40")));
 
@@ -94,6 +97,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 3.60"));
 
     }
@@ -115,6 +119,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.90"));
 
     }
@@ -136,6 +141,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 0.84"));
 
     }
@@ -171,6 +177,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.itemsPurchased()).contains(new LineItem("Milk Promotion", Money.parse("EUR -0.30")));
 
     }
@@ -206,6 +213,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         Collection<LineItem> itemsPurchased = receipt.itemsPurchased();
         LineItem lineItem = itemsPurchased.iterator().next();
         String quantity = String.valueOf(lineItem.getQuantity());
@@ -232,12 +240,89 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
+        System.out.println(receipt.print());
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.40"));
 
     }
 
+    @Test
+    public void should_be_able_to_print_receipt() throws Exception {
 
-    //TODO Should be able to print receipt
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // WHEN
+        String printedReceipt = receipt.print();
+
+        // THEN
+        System.out.println(printedReceipt);
+        assertThat(printedReceipt).contains("Total EUR 2.40");
+
+    }
+
+    @Test
+    public void receipt_should_show_buy_four_get_one_free_discounts() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyToGetFree(4, 1));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 4.80"));
+
+    }
+
+    @Test
+    public void receipt_should_show_buy_more_than_quantity_to_get_percentage_discount() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000003")).times(11);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.64"));
+
+    }
+
+
+    //TODO Line Items should should price total price per line
+    //TODO Should be able locate LineItem by Product?
+    //TODO Receipt should print number of items purchased
     //TODO LineItem Items need a Header LineItem
 
 

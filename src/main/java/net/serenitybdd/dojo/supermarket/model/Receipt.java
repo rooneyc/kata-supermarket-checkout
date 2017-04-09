@@ -5,11 +5,10 @@ import org.joda.money.Money;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class Receipt {
 
-    private Collection<LineItem> lineItems = new ArrayList<>();
+    private final Collection<LineItem> lineItems = new ArrayList<>();
     private Money totalPrice = Money.parse("EUR 0.00");
 
     public Money getTotalPrice() {
@@ -40,4 +39,14 @@ public class Receipt {
 
     }
 
+    public String print() {
+        StringBuilder receiptBuilder = new StringBuilder();
+        for (LineItem item : lineItems) {
+            receiptBuilder.append(item.toString());
+            receiptBuilder.append(System.getProperty("line.separator"));
+        }
+        receiptBuilder.append("Total ");
+        receiptBuilder.append(totalPrice);
+        return receiptBuilder.toString();
+    }
 }
