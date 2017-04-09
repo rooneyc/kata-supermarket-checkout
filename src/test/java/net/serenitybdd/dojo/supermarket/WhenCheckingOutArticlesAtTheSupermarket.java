@@ -433,24 +433,24 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void should_only_get_quantity_for_percentage_discount_once_if_buy_more_than_required() throws Exception {
+    public void should_only_get_buy_two_get_one_free_discounts_once_for_four_articles() throws Exception {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
-        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
 
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.add(new Article("0000000000003")).times(10+2);
+        theCart.add(new Article("0000000000001")).times(4);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
         System.out.println(receipt.print());
-        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.64"));
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 3.60"));
     }
 
 
