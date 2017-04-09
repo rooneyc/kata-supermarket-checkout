@@ -459,10 +459,28 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 3.60"));
     }
 
+    @Test
+    public void promotion_line_item_should_display_promotion_details() throws Exception {
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(2, 1));
 
+        Teller teller = new Teller(catalog);
 
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(4);
 
-    //TODO Promotion line item should have promotion details
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.print()).contains("Buy 2 Get 1 Free");
+
+    }
+
+//TODO Promotion line item should have promotion details
     //TODO LineItem should have fixed spacing
     //TODO Receipts need a Header ProductLineItem
 }
