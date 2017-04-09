@@ -1,11 +1,13 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
+import net.serenitybdd.dojo.supermarket.model.catalog.Code;
 import net.serenitybdd.dojo.supermarket.model.promotion.*;
 import net.serenitybdd.dojo.supermarket.model.Article;
 import net.serenitybdd.dojo.supermarket.model.receipt.ProductLineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +35,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
 
         Teller teller = new Teller(catalog);
 
@@ -53,8 +55,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000002"), new Product("Bread", Money.parse("EUR 2.40")));
 
         Teller teller = new Teller(catalog);
 
@@ -76,8 +78,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000002"), new Product("Bread", Money.parse("EUR 2.40")));
 
         Teller teller = new Teller(catalog);
 
@@ -98,8 +100,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
 
         Teller teller = new Teller(catalog);
 
@@ -119,8 +121,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new PercentageDiscountPerItem(0.30));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new PercentageDiscountPerItem(0.30));
 
         Teller teller = new Teller(catalog);
 
@@ -139,7 +141,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void should_be_able_print_receipt_line_item() throws Exception {
 
         // GIVEN
-        ProductLineItem lineItem = new ProductLineItem("Milk",  Money.parse("EUR 1.20"));
+        Product milk = new Product("Milk",  Money.parse("EUR 1.20"));
+        ProductLineItem lineItem = new ProductLineItem(milk);
 
         // WHEN
         String lineString = lineItem.toString();
@@ -154,8 +157,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
 
         Teller teller = new Teller(catalog);
 
@@ -175,7 +178,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_quantity_of_product_type_purchased() throws Exception {
 
         // GIVEN
-        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
+        Product apple = new Product("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem(apple);
 
         // WHEN
         String lineString = lineItem.toString();
@@ -190,7 +194,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
 
         Teller teller = new Teller(catalog);
 
@@ -210,8 +214,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(2, 1));
 
         Teller teller = new Teller(catalog);
 
@@ -231,8 +235,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(2, 1));
 
         Teller teller = new Teller(catalog);
 
@@ -252,8 +256,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyToGetFree(4, 1));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(4, 1));
 
         Teller teller = new Teller(catalog);
 
@@ -273,9 +277,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addProduct(new Code("0000000000003"), new Product("Apple", Money.parse("EUR 0.30")));
         int quantityMustBuyMoreThan = 10;
-        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(quantityMustBuyMoreThan, 0.20));
+        catalog.addPromotion(new Code("0000000000003"), new BuyMoreThanToGetPercentageDiscount(quantityMustBuyMoreThan, 0.20));
 
         Teller teller = new Teller(catalog);
 
@@ -295,8 +299,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
 
         Teller teller = new Teller(catalog);
 
@@ -316,8 +320,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000002"), new Product("Bread", Money.parse("EUR 2.40")));
 
         Teller teller = new Teller(catalog);
 
@@ -338,10 +342,10 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyToGetFree(4, 1));
-        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
-        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(4, 1));
+        catalog.addProduct(new Code("0000000000003"), new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addPromotion(new Code("0000000000003"), new BuyMoreThanToGetPercentageDiscount(10, 0.20));
 
         Teller teller = new Teller(catalog);
 
@@ -362,9 +366,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
-        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct(new Code("0000000000002"), new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addProduct(new Code("0000000000003"), new Product("Apple", Money.parse("EUR 0.30")));
 
         Teller teller = new Teller(catalog);
 
@@ -385,7 +389,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_total_price_for_quantity() throws Exception {
 
         // GIVEN
-        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
+        Product apple = new Product("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem(apple);
         lineItem.incrementQuantity();
 
         // WHEN
@@ -400,7 +405,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     public void a_line_item_should_display_unit_price_when_quantity_greater_than_one() throws Exception {
 
         // GIVEN
-        ProductLineItem lineItem = new ProductLineItem("Apple", Money.parse("EUR 0.30"));
+        Product apple = new Product("Apple", Money.parse("EUR 0.30"));
+        ProductLineItem lineItem = new ProductLineItem(apple);
         lineItem.incrementQuantity();
 
         // WHEN
@@ -416,8 +422,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
 
         Teller teller = new Teller(catalog);
 
@@ -437,8 +443,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // GIVEN
         Catalog catalog = new Catalog();
-        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion("0000000000001", new BuyToGetFree(2, 1));
+        catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(2, 1));
 
         Teller teller = new Teller(catalog);
 

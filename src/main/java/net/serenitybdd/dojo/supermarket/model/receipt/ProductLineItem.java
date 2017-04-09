@@ -1,5 +1,6 @@
 package net.serenitybdd.dojo.supermarket.model.receipt;
 
+import net.serenitybdd.dojo.supermarket.model.Product;
 import org.joda.money.Money;
 
 public class ProductLineItem implements LineItem {
@@ -8,15 +9,17 @@ public class ProductLineItem implements LineItem {
     private int quantity = 1;
     private Money price;
 
-    public ProductLineItem(String description, Money price) {
-        this.description = description;
-        this.price = price;
+    public ProductLineItem(Product product) {
+        this.description = product.getDescription();
+        this.price = product.getPrice();
     }
 
+    @Override
     public void incrementQuantity() {
         quantity += 1;
     }
 
+    @Override
     public int getQuantity() {
         return quantity;
     }

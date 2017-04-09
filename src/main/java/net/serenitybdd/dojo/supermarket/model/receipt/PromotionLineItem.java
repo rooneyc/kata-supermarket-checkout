@@ -6,17 +6,19 @@ public class PromotionLineItem implements LineItem {
 
     private String description;
     private int quantity = 0;
-    private Money price;
+    private Money discount;
 
-    public PromotionLineItem(String description, Money price) {
+    public PromotionLineItem(String description, Money discount) {
         this.description = description;
-        this.price = price;
+        this.discount = discount;
     }
 
+    @Override
     public void incrementQuantity() {
         quantity += 1;
     }
 
+    @Override
     public int getQuantity() {
         return quantity;
     }
@@ -29,18 +31,18 @@ public class PromotionLineItem implements LineItem {
         PromotionLineItem lineItem = (PromotionLineItem) o;
 
         if (description != null ? !description.equals(lineItem.description) : lineItem.description != null) return false;
-        return price != null ? price.equals(lineItem.price) : lineItem.price == null;
+        return discount != null ? discount.equals(lineItem.discount) : lineItem.discount == null;
     }
 
     @Override
     public int hashCode() {
         int result = description != null ? description.hashCode() : 0;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return description + " " + "Promotion" + " " + price;
+        return description + " " + "Promotion" + " " + discount;
     }
 }

@@ -19,7 +19,7 @@ public class Receipt {
     }
 
     void add(Product product) {
-        ProductLineItem lineItem = new ProductLineItem(product.getDescription(), product.getPrice());
+        ProductLineItem lineItem = new ProductLineItem(product);
 
         if (lineItems.contains(lineItem)) {
             getLineItemForProduct(product).incrementQuantity();
@@ -31,14 +31,14 @@ public class Receipt {
 
     private LineItem getLineItemForProduct(Product product) {
         for (LineItem item : lineItems) {
-            if (item.equals(new ProductLineItem(product.getDescription(), product.getPrice()))) {
+            if (item.equals(new ProductLineItem(product))) {
                 return item;
             }
         }
         return new NullLineItem();
     }
 
-    void applyPromotionToProduct(Promotion promotion, Product product) {
+    void applyPromotion(Promotion promotion, Product product) {
         int quantityScanned = getLineItemForProduct(product).getQuantity();
         Money discount = promotion.calculateDiscount(quantityScanned, product.getPrice());
             if (!discount.isZero()) {
