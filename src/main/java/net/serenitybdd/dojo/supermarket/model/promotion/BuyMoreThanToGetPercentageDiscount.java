@@ -8,17 +8,17 @@ import java.math.RoundingMode;
 
 public class BuyMoreThanToGetPercentageDiscount implements Promotion {
 
-    private int quantityMustBuy;
+    private int quantityMustBuyMoreThan;
     private double discount;
 
     public BuyMoreThanToGetPercentageDiscount(int quantityMustBuyMoreThan, double discount) {
-        this.quantityMustBuy = quantityMustBuyMoreThan + 1;
+        this.quantityMustBuyMoreThan = quantityMustBuyMoreThan;
         this.discount = discount;
     }
 
     @Override
     public Money calculateDiscount(int quantityScanned, Money price) {
-        if (quantityScanned == quantityMustBuy) {
+        if (quantityScanned > quantityMustBuyMoreThan) {
             return price.multipliedBy(quantityScanned).multipliedBy(discount, RoundingMode.CEILING).negated();
         }
         return Money.parse("EUR 0.00");
