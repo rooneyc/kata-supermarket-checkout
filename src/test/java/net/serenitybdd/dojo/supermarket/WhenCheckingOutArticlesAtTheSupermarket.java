@@ -351,8 +351,31 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
+    @Test
+    public void receipt_should_be_able_to_apply_two_different_types_of_quantity_discounts() throws Exception {
 
-    //TODO Line Items should should correct quantity when multiples of more than one product
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyToGetFree(4, 1));
+        catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(5);
+        theCart.add(new Article("0000000000003")).times(11);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 7.44"));
+
+    }
+
     //TODO Should be able to apply two different typw of quantity discounts
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
@@ -360,7 +383,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     //TODO Should be able locate LineItem by Product?
     //TODO Receipt should print number of items purchased
     //TODO LineItem Items need a Header LineItem
-
 
 }
 
