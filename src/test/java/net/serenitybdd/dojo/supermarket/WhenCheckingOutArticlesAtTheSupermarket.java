@@ -393,13 +393,28 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(lineString);
-        assertThat(lineString).isEqualTo("Apple 2 EUR 0.60");
+        assertThat(lineString).contains("EUR 0.60");
     }
 
+    @Test
+    public void a_line_item_should_display_unit_price_when_quantity_greater_than_one() throws Exception {
 
+        // GIVEN
+        LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
+        lineItem.incrementQuantity();
+
+        // WHEN
+        String lineString = lineItem.toString();
+
+        // THEN
+        System.out.println(lineString);
+        assertThat(lineString).contains("@EUR 0.30");
+    }
+
+    //TODO Promotion line item should have promotion details
+    //TODO LineItem should have fixed spacing
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
-    //TODO Line Items should should price total price per line
     //TODO Receipts need a Header LineItem
 
 }

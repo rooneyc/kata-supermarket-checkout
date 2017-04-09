@@ -41,7 +41,10 @@ public class LineItem implements CanGetAndIncrementQuantity {
 
     @Override
     public String toString() {
-        return description + " " + quantity + " " + price.multipliedBy(quantity);
+        if (quantity > 1) {
+            return description + " " + quantity + "@" + price + " " + price.multipliedBy(quantity);
+        }
+            return description + " " + quantity               + " " + price.multipliedBy(quantity);
     }
 
 }
