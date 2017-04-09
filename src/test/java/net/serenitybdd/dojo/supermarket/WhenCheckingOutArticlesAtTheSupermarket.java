@@ -9,6 +9,8 @@ import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
 import org.junit.Test;
 
+import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
@@ -173,7 +175,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void a_line_should_display_quantity_of_product_type_purchased() throws Exception {
+    public void a_line_item_should_display_quantity_of_product_type_purchased() throws Exception {
 
         // GIVEN
         LineItem lineItem = new LineItem("Apple", Money.parse("EUR 0.30"));
@@ -187,14 +189,30 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
     @Test
-    public void if_scan_two_items_of_same_type_then_line_should_have_quantity_of_two() throws Exception {
+    public void if_scan_two_items_of_same_type_then_line_item_should_have_quantity_of_two() throws Exception {
 
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
 
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Item("0000000000001"));
+
+        //LineItem lineItem = new LineItem("Milk", Money.parse("EUR 2.40"));
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        Collection<LineItem> itemsPurchased = receipt.itemsPurchased();
+        LineItem lineItem = itemsPurchased.iterator().next();
+        assertThat(lineItem.toString()).isEqualTo("Milk 2 EUR 2.40");
 
     }
 
-
-        //TODO Two products of the same type should result in line item with quantity of 2
     //TODO LineItem Items need a Header LineItem
 
 
