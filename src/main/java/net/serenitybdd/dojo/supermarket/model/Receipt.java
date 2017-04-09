@@ -1,6 +1,8 @@
 package net.serenitybdd.dojo.supermarket.model;
 
+import net.serenitybdd.dojo.supermarket.model.receipt.CanIncrementQuantity;
 import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
+import net.serenitybdd.dojo.supermarket.model.receipt.NullLineItem;
 import org.joda.money.Money;
 
 import java.util.ArrayList;
@@ -21,12 +23,22 @@ public class Receipt {
 
     void add(Product product) {
         LineItem lineitem = new LineItem(product.getDescription(), product.getPrice());
+
         if (lineItems.contains(lineitem)) {
-            lineItems.iterator().next().incrementQuantity();
+            getLineItemForProduct(product).incrementQuantity();
         } else {
             lineItems.add(lineitem);
         }
         totalPrice = totalPrice.plus(product.getPrice());
+    }
+
+    private CanIncrementQuantity getLineItemForProduct(Product product) {
+        for (LineItem item : lineItems) {
+            if (item.equals(new LineItem(product.getDescription(), product.getPrice()))) {
+                return item;
+            }
+        }
+        return new NullLineItem();
     }
 
     void applyPromotionToProduct(Promotion promotion, Product product) {

@@ -352,6 +352,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
 
     //TODO Line Items should should correct quantity when multiples of more than one product
+    //TODO Should be able to apply two different typw of quantity discounts
     //TODO If Buy less than required should not get the promotion
     //TODO Should only get promotion once if buy more than required.
     //TODO Line Items should should price total price per line

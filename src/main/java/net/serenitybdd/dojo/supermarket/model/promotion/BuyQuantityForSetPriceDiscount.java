@@ -19,14 +19,6 @@ public class BuyQuantityForSetPriceDiscount implements Promotion {
             return setPrice.minus(price.multipliedBy(quantityScanned));
         }
         return Money.parse("EUR 0.00");
-
-//        2 = pricescaneed_to_date + x
-//                2 - x = pricescaneed_to_date
-//                - x = pricescaneed_to_date - setprice
-//        x = setsetprice - pricescaneed_to_date
-//        e.g.
-//        x = 2 - 1.2*2
-//        x = -0.40
     }
 
 }
