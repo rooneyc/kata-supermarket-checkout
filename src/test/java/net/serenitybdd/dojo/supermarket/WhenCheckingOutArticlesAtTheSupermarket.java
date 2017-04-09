@@ -7,7 +7,6 @@ import net.serenitybdd.dojo.supermarket.model.Article;
 import net.serenitybdd.dojo.supermarket.model.receipt.ProductLineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,8 +68,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(receipt.print());
-        assertThat(receipt.print()).contains("Milk 1 EUR 1.20");
-        assertThat(receipt.print()).contains("Bread 1 EUR 2.40");
+        assertThat(receipt.print()).contains("Milk");
+        assertThat(receipt.print()).contains("Bread");
     }
 
     @Test
@@ -170,7 +169,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(receipt.print());
-        assertThat(receipt.print()).contains("Milk Promotion");
+        assertThat(receipt.print()).contains("Milk");
         assertThat(receipt.print()).contains("EUR -0.30");
     }
 
@@ -186,7 +185,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         // THEN
         System.out.println(lineString);
-        assertThat(lineString).isEqualTo("Apple 1 EUR 0.30");
+        assertThat(lineString).contains("1");
     }
 
     @Test
@@ -327,14 +326,14 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
         ShoppingCart theCart = new ShoppingCart();
         theCart.add(new Article("0000000000001")).times(2);
-        theCart.add(new Article("0000000000002")).times(2);
+        theCart.add(new Article("0000000000002")).times(3);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
         System.out.println(receipt.print());
-        assertThat(receipt.print()).contains("Bread 2");
+        assertThat(receipt.print()).contains("2");
     }
 
     @Test
@@ -464,12 +463,24 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct(new Code("0000000000001"), new Product("Milk", Money.parse("EUR 1.20")));
-        catalog.addPromotion(new Code("0000000000001"), new BuyToGetFree(2, 1));
+        catalog.addPromotion(new Code("0000000000001"), new FixedPriceDiscountPerItem(Money.parse("EUR 0.30")));
+        catalog.addProduct(new Code("0000000000002"), new Product("Bread", Money.parse("EUR 2.40")));
+        catalog.addPromotion(new Code("0000000000002"), new PercentageDiscountPerItem(0.30));
+        catalog.addProduct(new Code("0000000000003"), new Product("Apple", Money.parse("EUR 0.30")));
+        catalog.addPromotion(new Code("0000000000003"), new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+        catalog.addProduct(new Code("0000000000004"), new Product("Honey", Money.parse("EUR 3.50")));
+        catalog.addPromotion(new Code("0000000000004"), new BuyToGetFree(2, 1));
+        catalog.addProduct(new Code("0000000000005"), new Product("Toothbrush", Money.parse("EUR 7.50")));
+        catalog.addPromotion(new Code("0000000000005"), new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 6.00")));
 
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.add(new Article("0000000000001")).times(4);
+        theCart.add(new Article("0000000000001")).times(2);
+        theCart.add(new Article("0000000000002")).times(2);
+        theCart.add(new Article("0000000000003")).times(11);
+        theCart.add(new Article("0000000000004")).times(3);
+        theCart.add(new Article("0000000000005")).times(2);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -477,12 +488,17 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // THEN
         System.out.println(receipt.print());
         assertThat(receipt.print()).contains("Buy 2 Get 1 Free");
-
+        assertThat(receipt.print()).contains("Discounted By");
+        assertThat(receipt.print()).contains("% Off");
+        assertThat(receipt.print()).contains("When Buy More Than");
+        assertThat(receipt.print()).contains("For");
     }
 
-//TODO Promotion line item should have promotion details
-    //TODO LineItem should have fixed spacing
+
+
+    //TODO LineItems should have fixed spacing
     //TODO Receipts need a Header ProductLineItem
 }
+
 
 

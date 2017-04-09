@@ -6,4 +6,6 @@ public interface Promotion {
 
     Money calculateDiscount(int quantityScanned, Money price);
 
+    String description();
+
 }

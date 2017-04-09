@@ -9,4 +9,9 @@ public class NullPromotion implements Promotion {
     public Money calculateDiscount(int quantityScanned, Money price) {
         return Money.parse("EUR 0.00");
     }
+
+    @Override
+    public String description() {
+        return null;
+    }
 }

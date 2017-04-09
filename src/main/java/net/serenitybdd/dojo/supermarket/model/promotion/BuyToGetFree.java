@@ -20,4 +20,9 @@ public class BuyToGetFree implements Promotion {
         }
         return Money.parse("EUR 0.00");
     }
+
+    @Override
+    public String description() {
+        return "Buy" + " " + String.valueOf(quantityMustBuyMoreThan - 1) + " " + "Get" + " " + String.valueOf(getFree) + " " + "Free";
+    }
 }

@@ -21,4 +21,9 @@ public class BuyQuantityForSetPriceDiscount implements Promotion {
         return Money.parse("EUR 0.00");
     }
 
+    @Override
+    public String description() {
+        return quantityMustBuy + " For " + setPrice;
+    }
+
 }

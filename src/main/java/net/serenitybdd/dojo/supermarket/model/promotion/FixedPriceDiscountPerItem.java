@@ -15,4 +15,9 @@ public class FixedPriceDiscountPerItem implements Promotion {
     public Money calculateDiscount(int quantityScanned, Money price) {
         return discount.negated();
     }
+
+    @Override
+    public String description() {
+        return "Discounted By";
+    }
 }

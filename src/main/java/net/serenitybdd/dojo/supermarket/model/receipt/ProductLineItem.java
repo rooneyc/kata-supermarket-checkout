@@ -10,8 +10,8 @@ public class ProductLineItem implements LineItem {
     private Money price;
 
     public ProductLineItem(Product product) {
-        this.description = product.getDescription();
-        this.price = product.getPrice();
+        this.description = product.description();
+        this.price = product.price();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ProductLineItem implements LineItem {
         if (quantity > 1) {
             unitPrice = "@" + price;
         }
-            return description + " " + quantity + unitPrice + " " + price.multipliedBy(quantity);
+            return String.format("%-10s", description) + " " + quantity + unitPrice + " " + price.multipliedBy(quantity);
     }
 
 }

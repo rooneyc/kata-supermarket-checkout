@@ -17,4 +17,9 @@ public class PercentageDiscountPerItem implements Promotion {
     public Money calculateDiscount(int quantityScanned, Money price) {
         return price.multipliedBy(discount, RoundingMode.CEILING).negated();
     }
+
+    @Override
+    public String description() {
+        return discount*100 + "%" + " Off";
+    }
 }

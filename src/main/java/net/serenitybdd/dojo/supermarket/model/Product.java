@@ -12,11 +12,11 @@ public class Product {
         this.price = price;
     }
 
-    public Money getPrice() {
+    public Money price() {
         return price;
     }
 
-    public String getDescription() {
+    public String description() {
         return description;
     }
 

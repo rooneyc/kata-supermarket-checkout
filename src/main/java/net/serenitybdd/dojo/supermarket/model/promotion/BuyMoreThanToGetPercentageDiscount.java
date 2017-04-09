@@ -23,4 +23,9 @@ public class BuyMoreThanToGetPercentageDiscount implements Promotion {
         }
         return Money.parse("EUR 0.00");
     }
+
+    @Override
+    public String description() {
+        return discount*100 + "%" + " Off When Buy More Than " + quantityMustBuyMoreThan;
+    }
 }

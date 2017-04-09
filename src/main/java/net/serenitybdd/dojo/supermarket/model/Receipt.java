@@ -26,7 +26,7 @@ public class Receipt {
         } else {
             lineItems.add(lineItem);
         }
-        totalPrice = totalPrice.plus(product.getPrice());
+        totalPrice = totalPrice.plus(product.price());
     }
 
     private LineItem getLineItemForProduct(Product product) {
@@ -40,9 +40,9 @@ public class Receipt {
 
     void applyPromotion(Promotion promotion, Product product) {
         int quantityScanned = getLineItemForProduct(product).getQuantity();
-        Money discount = promotion.calculateDiscount(quantityScanned, product.getPrice());
+        Money discount = promotion.calculateDiscount(quantityScanned, product.price());
             if (!discount.isZero()) {
-                lineItems.add(new PromotionLineItem(product.getDescription(), discount));
+                lineItems.add(new PromotionLineItem(product.description() + " " + promotion.description(), discount));
                 totalPrice = totalPrice.plus(discount);
             }
 

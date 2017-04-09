@@ -40,7 +40,7 @@ public class PromotionLineItem implements LineItem {
 
     @Override
     public String toString() {
-        return description + " " + "Promotion" + " " + discount;
+        return description + " " + discount;
     }
 
 }
