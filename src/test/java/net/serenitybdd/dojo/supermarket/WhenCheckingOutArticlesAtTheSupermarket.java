@@ -1,10 +1,7 @@
 package net.serenitybdd.dojo.supermarket;
 
 import net.serenitybdd.dojo.supermarket.model.*;
-import net.serenitybdd.dojo.supermarket.model.promotion.BuyMoreThanToGetPercentageDiscount;
-import net.serenitybdd.dojo.supermarket.model.promotion.BuyToGetFree;
-import net.serenitybdd.dojo.supermarket.model.promotion.FixedPriceDiscountPerItem;
-import net.serenitybdd.dojo.supermarket.model.promotion.PercentageDiscountPerItem;
+import net.serenitybdd.dojo.supermarket.model.promotion.*;
 import net.serenitybdd.dojo.supermarket.model.Article;
 import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
@@ -206,8 +203,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
+        theCart.add(new Article("0000000000001")).times(2);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -232,9 +228,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
+        theCart.add(new Article("0000000000001")).times(3);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -256,18 +250,14 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        theCart.add(new Article("0000000000001")).times(3);
 
         // WHEN
-        String printedReceipt = receipt.print();
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
 
         // THEN
-        System.out.println(printedReceipt);
-        assertThat(printedReceipt).contains("Total EUR 2.40");
+        System.out.println(receipt.print());
+        assertThat(receipt.print()).contains("Total EUR 2.40");
 
     }
 
@@ -282,11 +272,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
-        theCart.addItem(new Article("0000000000001"));
+        theCart.add(new Article("0000000000001")).times(5);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -319,7 +305,55 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
 
     }
 
+    @Test
+    public void receipt_should_show_quantity_for_set_price_discount() throws Exception {
 
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addPromotion("0000000000001", new BuyQuantityForSetPriceDiscount(2, Money.parse("EUR 2.00")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.getTotalPrice()).isEqualTo(Money.parse("EUR 2.00"));
+
+    }
+
+    @Test
+    public void line_items_should_show_correct_quantity_when_multiples_of_more_than_one_product() throws Exception {
+
+        // GIVEN
+        Catalog catalog = new Catalog();
+        catalog.addProduct("0000000000001", new Product("Milk", Money.parse("EUR 1.20")));
+        catalog.addProduct("0000000000002", new Product("Bread", Money.parse("EUR 2.40")));
+
+        Teller teller = new Teller(catalog);
+
+        ShoppingCart theCart = new ShoppingCart();
+        theCart.add(new Article("0000000000001")).times(2);
+        theCart.add(new Article("0000000000002")).times(2);
+
+        // WHEN
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+
+        // THEN
+        System.out.println(receipt.print());
+        assertThat(receipt.print()).contains("Bread 2");
+
+    }
+
+
+    //TODO Line Items should should correct quantity when multiples of more than one product
+    //TODO If Buy less than required should not get the promotion
+    //TODO Should only get promotion once if buy more than required.
     //TODO Line Items should should price total price per line
     //TODO Should be able locate LineItem by Product?
     //TODO Receipt should print number of items purchased

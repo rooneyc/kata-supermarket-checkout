@@ -11,8 +11,8 @@ public class BuyMoreThanToGetPercentageDiscount implements Promotion {
     private int quantityMustBuy;
     private double discount;
 
-    public BuyMoreThanToGetPercentageDiscount(int quantityMustBuy, double discount) {
-        this.quantityMustBuy = quantityMustBuy;
+    public BuyMoreThanToGetPercentageDiscount(int quantityMustBuyMoreThan, double discount) {
+        this.quantityMustBuy = quantityMustBuyMoreThan + 1;
         this.discount = discount;
     }
 
