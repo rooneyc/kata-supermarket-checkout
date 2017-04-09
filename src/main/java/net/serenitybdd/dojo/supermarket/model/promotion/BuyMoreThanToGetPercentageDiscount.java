@@ -18,7 +18,7 @@ public class BuyMoreThanToGetPercentageDiscount implements Promotion {
 
     @Override
     public Money calculateDiscount(int quantityScanned, Money price) {
-        if (quantityScanned > quantityMustBuy) {
+        if (quantityScanned == quantityMustBuy) {
             return price.multipliedBy(quantityScanned).multipliedBy(discount, RoundingMode.CEILING).negated();
         }
         return Money.parse("EUR 0.00");

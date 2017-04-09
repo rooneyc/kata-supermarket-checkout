@@ -289,12 +289,13 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         // GIVEN
         Catalog catalog = new Catalog();
         catalog.addProduct("0000000000003", new Product("Apple", Money.parse("EUR 0.30")));
-        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(10, 0.20));
+        int quantityMustBuyMoreThan = 10;
+        catalog.addPromotion("0000000000003", new BuyMoreThanToGetPercentageDiscount(quantityMustBuyMoreThan, 0.20));
 
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.add(new Article("0000000000003")).times(11);
+        theCart.add(new Article("0000000000003")).times(quantityMustBuyMoreThan+1);
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
