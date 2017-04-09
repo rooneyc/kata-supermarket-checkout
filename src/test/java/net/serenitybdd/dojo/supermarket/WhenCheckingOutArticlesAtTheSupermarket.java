@@ -454,8 +454,6 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
     }
 
 
-    //TODO If Buy less than required should not get the promotion
-    //TODO Should only get promotion once if buy more than required.
     //TODO Promotion line item should have promotion details
     //TODO LineItem should have fixed spacing
     //TODO Receipts need a Header ProductLineItem

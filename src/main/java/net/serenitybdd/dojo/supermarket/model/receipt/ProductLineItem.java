@@ -41,10 +41,11 @@ public class ProductLineItem implements LineItem {
 
     @Override
     public String toString() {
+        String unitPrice = "";
         if (quantity > 1) {
-            return description + " " + quantity + "@" + price + " " + price.multipliedBy(quantity);
+            unitPrice = "@" + price;
         }
-            return description + " " + quantity               + " " + price.multipliedBy(quantity);
+            return description + " " + quantity + unitPrice + " " + price.multipliedBy(quantity);
     }
 
 }
