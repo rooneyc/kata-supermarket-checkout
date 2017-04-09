@@ -4,7 +4,7 @@ import net.serenitybdd.dojo.supermarket.model.*;
 import net.serenitybdd.dojo.supermarket.model.promotion.BuyToGetFree;
 import net.serenitybdd.dojo.supermarket.model.promotion.FixedPriceDiscountPerItem;
 import net.serenitybdd.dojo.supermarket.model.promotion.PercentageDiscountPerItem;
-import net.serenitybdd.dojo.supermarket.model.Item;
+import net.serenitybdd.dojo.supermarket.model.Article;
 import net.serenitybdd.dojo.supermarket.model.receipt.LineItem;
 import net.serenitybdd.dojo.supermarket.model.Receipt;
 import org.joda.money.Money;
@@ -43,7 +43,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -64,8 +64,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
-        theCart.addItem(new Item("0000000000002"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000002"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -87,8 +87,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
-        theCart.addItem(new Item("0000000000002"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000002"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -109,7 +109,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -130,7 +130,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -165,7 +165,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -199,8 +199,8 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
@@ -224,9 +224,9 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         Teller teller = new Teller(catalog);
 
         ShoppingCart theCart = new ShoppingCart();
-        theCart.addItem(new Item("0000000000001"));
-        theCart.addItem(new Item("0000000000001"));
-        theCart.addItem(new Item("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
+        theCart.addItem(new Article("0000000000001"));
 
         // WHEN
         Receipt receipt = teller.checksOutArticlesFrom(theCart);

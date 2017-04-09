@@ -13,7 +13,7 @@ public class Teller {
 
         Receipt receipt = new Receipt();
 
-        for (Item item : theCart.getItems()) {
+        for (Article item : theCart.getItems()) {
             Product product = catalog.getProductFromCode(item.getCode());
             receipt.add(product);
             Promotion promotion = catalog.getPromotionFromCode(item.getCode());

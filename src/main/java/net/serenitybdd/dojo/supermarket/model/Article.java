@@ -1,10 +1,10 @@
 package net.serenitybdd.dojo.supermarket.model;
 
-public class Item {
+public class Article {
 
     private String code;
 
-    public Item(String code) {
+    public Article(String code) {
         this.code = code;
     }
 
